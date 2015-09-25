@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+
+<head>
+<title>CreateStream</title>
+<style type="text/css">
+div#above {background-color:#99bbbb;height:100px;border-left: solid #000;border-right:solid #000;border-top:solid #000;}
+div#middle {background-color:#ooooo;border:solid #000}
+div#bottom {background-color:#99bbbb;height:30px;border-left:solid #000 ;border-right:solid #000;border-bottom:solid #000;}
+</style>
+</head>
+
+<body>
+
+<div id="above">
+<body>
+<style type="text/css">
+h1 {text-align: center;font-style:italic;color:#FFFFFF;text-shadow:2px 2px 5px black,-2px 2px 5px grey}
+</style>
+<h1>Connexus</h1>
+</body>
+</div>
+
+<div id="middle">
+<body>
+<style type="text/css">
+h2 {text-align: left}
+</style>
+<h2>&nbsp;Connex.us</h2>&nbsp;
+<a href="">Manage</a>
+&nbsp;|&nbsp;
+<a href="">Create</a>
+&nbsp;|&nbsp;
+<a href="">View</a>
+&nbsp;|&nbsp;
+<a href="">Search</a>
+&nbsp;|&nbsp;
+<a href="">Trending</a>
+&nbsp;|&nbsp;
+<a href="">Social</a>
+<br/>
+<br/>
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+<form action="/htmls/management.html" method="post">
+<table>
+<tr>
+	<td width="400";align="left">&nbsp;&nbsp;<textarea name="stream_name" rows="2" cols="40">Name your stream</textarea></td>
+	<td width="400";align="right"><textarea name="stream_tags" rows="2" cols="40">Tag your stream</textarea></td>
+</tr>
+<tr>
+	<td width="400";align="left">&nbsp;&nbsp;Name your stream</td>
+	<td width="400";align="right">Tag your stream</td>
+</tr>
+<tr
+	<td width="400";align="left">&nbsp;&nbsp;<textarea name="stream_email" rows="2" cols="40">@</textarea></td>
+	<td width="400";align="right"><textarea name="cover_image" rows="2" cols="40">URL</textarea></td>
+</tr>
+<tr>
+	<td width="400";align="left">&nbsp;&nbsp;<textarea name="stream_message" rows="2" cols="40">Message</textarea></td>
+	<td width="400";align="right">URL to cover image(can be empty)</td>
+</tr>
+<tr>
+	<td width="400";align="left">&nbsp;&nbsp;Add subscribers</td>
+</tr>
+</table>
+<br/>
+&nbsp;&nbsp;<input type="submit" value="Create Stream">
+</form>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+<p></p>
+</body>
+</div>
+
+<div id="bottom">
+</div>
+
+</body>
+</html>
+{% endautoescape %}

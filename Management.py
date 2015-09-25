@@ -39,8 +39,8 @@ class MainPage(webapp2.RequestHandler):
             url_linktext = 'Logout'
             getUser = User.query(User.email == user.email())
 
-            self.response.write(str(getUser.fetch(1)[0]))
-            if getUser:
+            self.response.write(str(getUser.fetch(1)))
+            if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
                 # Get the keys of streams
@@ -48,7 +48,6 @@ class MainPage(webapp2.RequestHandler):
                 for stream_key in streams_key:
                     stream = stream_key.get()
                     owned_streams.append(stream)
-
 
             else:
                 currentUser = User(identity = user.user_id(), email = user.email())

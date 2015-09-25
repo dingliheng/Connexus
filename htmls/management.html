@@ -6,7 +6,7 @@
 <title>Management</title>
 <style type="text/css">
 div#above {background-color:#99bbbb;height:100px;border-left: solid #000;border-right:solid #000;border-top:solid #000;}
-div#middle {background-color:#ooooo;height:550px;border:solid #000}
+div#middle {background-color:#ooooo;border:solid #000}
 div#bottom {background-color:#99bbbb;height:30px;border-left:solid #000 ;border-right:solid #000;border-bottom:solid #000;}
 </style>
 </head>
@@ -16,18 +16,18 @@ div#bottom {background-color:#99bbbb;height:30px;border-left:solid #000 ;border-
 <div id="above">
 <body>
 <style type="text/css">
-h3 {text-align: center}
+h1 {text-align: center;font-style:italic;color:#FFFFFF;text-shadow:2px 2px 5px black,-2px 2px 5px grey}
 </style>
-<h3>Connexus</h3>
+<h1>Connexus</h1>
 </body>
 </div>
 
 <div id="middle">
 <body>
 <style type="text/css">
-h1 {text-align: left}
+h2 {text-align: left}
 </style>
-<h1>&nbsp;Connex.us</h1>&nbsp;
+<h2>&nbsp;Connex.us</h2>&nbsp;
 <a href="">Manage</a>
 &nbsp;|&nbsp;
 <a href="">Create</a>
@@ -39,6 +39,7 @@ h1 {text-align: left}
 <a href="">Trending</a>
 &nbsp;|&nbsp;
 <a href="">Social</a>
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 <h2>&nbsp;Streams I own</h2>
 <table>
@@ -48,19 +49,20 @@ h1 {text-align: left}
   <td width="300";align="right">Number of Pictures</td>
   <td width="300";align="right">Delete</td>
 </tr>
-{% for name in names %}
+{% for stream in streams %}
 <tr>
-  <td width="300";align="left">&nbsp;&nbsp;<a href="">{{name}}</a></td>
-  <td width="300";align="ritht">Last New Picture</td>
-  <td width="300";align="right">Number of Pictures</td>
-  <td width="300";align="right"><input type="checkbox"></td>
+  <td width="300";align="left">&nbsp;&nbsp;<a href="">{{stream.name}}</a></td>
+  <td width="300";align="ritht">{{stream.date}}</td>
+  <td width="300";align="right">{{stream.num_of_pics}}</td>
+  <td width="300";align="right"><input type="checkbox" name={{stream.name}}></td>
 </tr>
 {% endfor %}
 </table>
 <br/>
-&nbsp;&nbsp;<button>Delete Checked</button>
+<form>&nbsp;&nbsp;<button>Delete Checked</button></form>
 
 <h2>&nbsp;Streams I subscribe to</h2>
+
 <table>
 <tr>
   <td width="300";align="left">&nbsp;&nbsp;Name</td>
@@ -82,12 +84,14 @@ h1 {text-align: left}
 <br/>
 &nbsp;&nbsp;<button>Unsubscribe Checked Streams</button>
 
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p></p>
 </body>
 </div>
 
 <div id="bottom">
 </div>
-<a href="{{ url|safe }}">{{ url_linktext }}</a>
+
 </body>
 </html>
 {% endautoescape %}
