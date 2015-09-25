@@ -7,7 +7,7 @@ import jinja2
 import urllib
 
 DEFAULT_STREAM_NAME = 'default_stream'
-def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
+def guestbook_key(guestbook_name=DEFAULT_STREAM_NAME):
     """Constructs a Datastore key for a Guestbook entity.
     We use guestbook_name as the key.
     """
@@ -19,7 +19,7 @@ def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
 class User(ndb.Model):
     """Sub model for representing an author."""
     identity = ndb.StringProperty(indexed=False)
-    email = ndb.StringProperty(indexed=False)
+    email = ndb.StringProperty(indexed=True)
     streams_owned = ndb.KeyProperty(repeated = True)
     streams_subscribed = ndb.StringProperty(repeated = True)
 

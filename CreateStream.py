@@ -7,7 +7,7 @@ import webapp2
 from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
-from Connexus import User, stream_key
+from Connexus import User
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),

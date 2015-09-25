@@ -1,4 +1,5 @@
 import cgi
+import logging
 from Connexus import User
 from CreateStream import Image, CreateNewStream
 
@@ -31,22 +32,30 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         # Checks for active Google account session
 
-        user = User.query(User.email == users.get_current_user().email)
+        user = users.get_current_user()
+        owned_streams = []
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+            getUser = User.query(User.email == user.email())
+
+            self.response.write(str(getUser.fetch(1)[0]))
+            if getUser:
+
+                currentUser = getUser.fetch(1)[0]
+                # Get the keys of streams
+                streams_key = currentUser.streams_owned
+                for stream_key in streams_key:
+                    stream = stream_key.get()
+                    owned_streams.append(stream)
+
+
+            else:
+                currentUser = User(identity = user.user_id(), email = user.email())
+                currentUser.put()
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
-
-        currentUser = user.fetch(1)[0]
-        # Get the keys of streams
-        streams_key = currentUser.streams_owned
-
-        owned_streams = []
-        for stream_key in streams_key:
-            stream = stream_key.get()
-            owned_streams.append(stream)
 
         # for stream in currentUser.streams_owned:
         template_values = {
@@ -55,7 +64,7 @@ class MainPage(webapp2.RequestHandler):
             'url_linktext': url_linktext,
         }
 
-        template = JINJA_ENVIRONMENT.get_template('management.html')
+        template = JINJA_ENVIRONMENT.get_template('/htmls/management.html')
         self.response.write(template.render(template_values))
 
 
