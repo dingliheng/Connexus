@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+<head>
+    <title>CSS Demonstration</title>
+    <style type="text/css">
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 13px;
+            color: black;
+            background: white;
+            margin: 8px;
+        }
+        h1 {
+            font-size: 19px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid black
+        }
+        .shaded {
+            background: #d0d0ff;
+            margin-left: 20px;
+            height: 100px;
+        }
+    </style>
+  </head>
+<body>
+  <h1>Welcome to Connexus!</h1>
+ <p>
+<h2>Share the world!</h2>
+ </p>
+ <p>
+ <form method="post" action="/login">
+     Accout:<input type="text" name="account"/><br><br>
+     Password:<input type="password" name="password"/><br><br>
+ <input type="submit" value="Login"/>
+ <input type="submit" value="Cancel"
+ onclick="window.location='/'; return false;"/>
+ </form>
+ </p>
+{% if error %}
+ <p>
+     bbb
+ {{ error }}
+ </p>
+{% endif %}
+</body>
+</html>
+{% endautoescape %}
