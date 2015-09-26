@@ -1,7 +1,8 @@
 import cgi
 import logging
 from Connexus import User
-from CreateStream import Image, CreateNewStream
+from ViewASingleStream import Image
+from CreateStream import CreateNewStream
 import ViewASingleStream
 
 __author__ = 'yusun'
@@ -82,5 +83,7 @@ class MainPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/img', Image),
                                ('/create', CreateNewStream),
+                               ('/upload_photo', ViewASingleStream.PhotoUploadHandler),
+                               ('/view_photo/([^/]+)?', ViewASingleStream.ViewPhotoHandler),
                                ('/view', ViewASingleStream.ViewStream)
                                ], debug=True)

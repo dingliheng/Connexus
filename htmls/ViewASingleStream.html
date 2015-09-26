@@ -2,12 +2,14 @@
 {% block title %}ViewASingleStrem{% endblock %}
 {% block content %}
 <p>
-<form action="" method="post">
-    {% for stream in streams %}
-    <img src="/i/eg_mouse.jpg"/>
-    {% endfor %}
-    <input type="submit" value="More pictures" name="morepicture">
-</form>
+<img src="/img?stream_name={{stream_name}}"></img>
+
+<!--<form action="" method="post">-->
+
+    <!--<div><img src="/img??stream_name={{stream_name}}"></img></div>-->
+
+    <!--<input type="submit" value="More pictures" name="morepicture">-->
+<!--</form>-->
 </p>
 
 <p>

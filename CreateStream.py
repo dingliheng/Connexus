@@ -26,6 +26,7 @@ class Stream(ndb.Model):
     author = ndb.StringProperty()
     tags = ndb.StringProperty(repeated=True)
     picture = ndb.BlobProperty(repeated=True)
+    blob_key = ndb.BlobKeyProperty(repeated=True)
     cover = ndb.StringProperty()
     num_of_pics = ndb.IntegerProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
@@ -96,15 +97,7 @@ class CreateNewStream(webapp2.RequestHandler):
 
 # [END CreateNewStream_page]
 
-class Image(webapp2.RequestHandler):
-    def get(self):
-        greeting_key = ndb.Key(urlsafe=self.request.get('img_id'))
-        greeting = greeting_key.get()
-        if greeting.avatar:
-            self.response.headers['Content-Type'] = 'image/png'
-            self.response.out.write(greeting.avatar)
-        else:
-            self.response.out.write('No image')
+
 
 
 
