@@ -1,47 +1,33 @@
 {% extends '/htmls/base.html' %}
-{% block title %}Management{% endblock %}
+{% block title %}ViewASingleStrem{% endblock %}
 {% block content %}
-<h2>&nbsp;Streams I own</h2>
-<table>
-   <tr>
-      <td width="300";align="left">&nbsp;&nbsp;Name</td>
-      <td width="300";align="right">Last New Picture</td>
-      <td width="300";align="right">Number of Pictures</td>
-      <td width="300";align="right">Delete</td>
-   </tr>
-   {% for stream in streams %}
-   <tr>
-      <td width="300";align="left">&nbsp;&nbsp;<a href="">{{stream.name}}</a></td>
-      <td width="300";align="right">{{stream.date}}</td>
-      <td width="300";align="right">{{stream.num_of_pics}}</td>
-      <td width="300";align="right"><input type="checkbox" name={{stream.name}}></td>
-   </tr>
-   {% endfor %}
-</table>
-<br/>
-&nbsp;&nbsp;<input type="submit" value="Delete Checked">
+<p>
+<form action="" method="post">
+    {% for stream in streams %}
+    <img src="/i/eg_mouse.jpg"/>
+    {% endfor %}
+    <input type="submit" value="More pictures" name="morepicture">
 </form>
-<h2>&nbsp;Streams I subscribe to</h2>
-<form>
-   <table>
-      <tr>
-         <td width="300";align="left">&nbsp;&nbsp;Name</td>
-         <td width="300";align="right">Last New Picture</td>
-         <td width="300";align="right">Number of Pictures</td>
-         <td width="150";align="right">Views</td>
-         <td width="150";align="right">Unsubscribe</td>
-      </tr>
-      {% for name in names %}
-      <tr>
-         <td width="300";align="left">&nbsp;&nbsp;<a href="">{{name}}</a></td>
-         <td width="300";align="right">Last New Picture</td>
-         <td width="300";align="right">Number of Pictures</td>
-         <td width="150";align="right">Views</td>
-         <td width="150";align="right"><input type="checkbox"></td>
-      </tr>
-      {% endfor %}
-   </table>
-   <br>
-   &nbsp;&nbsp;<input type="submit" value="Unsubscribe Checked Streams">
+</p>
+
+<p>
+    <form action="/view?stream_name={{stream_name}}" method="post">
+    <table>
+        <tr>
+            <td><input type="file" name="new_img"></td>
+            <td><input type="text" value="Comments" name="new_comments"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Upload file" name="upload button"></td>
+            <td>Add an Image</td>
+        </tr>
+    </table>
 </form>
+</p>
+<p>
+    <form action="/" method="post">
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Subscribe" name="subscribebutton">
+</form>
+</p>
+
 {% endblock %}

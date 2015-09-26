@@ -53,6 +53,7 @@ class CreateNewStream(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
+        self.response.write("qqqqqq")
         user = users.get_current_user()
         if user:
 
