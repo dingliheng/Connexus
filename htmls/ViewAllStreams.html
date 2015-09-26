@@ -1,0 +1,17 @@
+{% extends '/htmls/base.html' %}
+{% block title %}ViewAllStreams{% endblock %}
+{% block content %}
+    <p>
+        <h2>View All Streams</h2>
+    <br/>
+    {% n = 0 %}
+    {% for stream in streams %}
+        {% if n == 0 or n/4 !=0 %}
+            <img src="">
+        {% else %}
+            <br/>
+            <img src="">
+        {% endif %}
+    {% endfor %}
+    </p>
+{% endblock %}

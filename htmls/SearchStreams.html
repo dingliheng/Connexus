@@ -1,0 +1,25 @@
+{% extends '/htmls/base.html' %}
+{% block title %}SearchStreams{% endblock %}
+{% block content %}
+<p>
+    <form action="" method="post">
+        &nbsp;&nbsp;<input type="text" name="keyword" value="key word of the stream">
+        <br/>
+        &nbsp;&nbsp;<input type="submit" name="search" value="Search">
+    </form>
+    <br/>
+    {{ result_number }} result for {{ keyword }}
+    <br/>
+     click on an image to view stream
+    {% i = 0 %}
+    {% for stream in streams %}
+        {% if i<5 %}
+            <img src="">
+            <br/>
+            {% i++ %}
+        {% else %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+</p>
+{% endblock %}
