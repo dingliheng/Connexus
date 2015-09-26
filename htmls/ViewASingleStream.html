@@ -2,7 +2,7 @@
 {% block title %}ViewASingleStrem{% endblock %}
 {% block content %}
 <p>
-<img src="/img?stream_name={{stream_name}}"></img>
+
 
 <!--<form action="" method="post">-->
 
@@ -13,15 +13,17 @@
 </p>
 
 <p>
-    <form action="/view?stream_name={{stream_name}}" method="post">
+    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
-            <td><input type="file" name="new_img"></td>
+            <td>Upload File: <input type="file" name="file"></td>
             <td><input type="text" value="Comments" name="new_comments"></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Upload file" name="upload button"></td>
-            <td>Add an Image</td>
+            <td><img src="/img?stream_name={{stream_name}}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" name="submit"></td>
         </tr>
     </table>
 </form>

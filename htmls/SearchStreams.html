@@ -5,21 +5,16 @@
     <form action="" method="post">
         &nbsp;&nbsp;<input type="text" name="keyword" value="key word of the stream">
         <br/>
+        <br/>
         &nbsp;&nbsp;<input type="submit" name="search" value="Search">
     </form>
     <br/>
-    {{ result_number }} result for {{ keyword }}
+    &nbsp;&nbsp;{{ result_number }} results for {{ keyword }}
     <br/>
-     click on an image to view stream
-    {% i = 0 %}
+    &nbsp;&nbsp;click on an image to view stream
     {% for stream in streams %}
-        {% if i<5 %}
             <img src="">
             <br/>
-            {% i++ %}
-        {% else %}
-            {% break %}
-        {% endif %}
     {% endfor %}
 </p>
 {% endblock %}

@@ -45,18 +45,20 @@ class ViewStream(webapp2.RequestHandler):
         for blob_key in stream.blob_key:
             self.response.out.write('<img src="/view_photo/%s"</img>'% blob_key)
 
+        upload_url = blobstore.create_upload_url('/upload_photo?stream_name='+str(stream_name))
         # self.redirect('/img?stream_name='+str(stream_name))
         template_values = {
             'stream_name': stream_name,
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+            'upload_url': upload_url,
         }
 
         template = JINJA_ENVIRONMENT.get_template('/htmls/ViewASingleStream.html')
         self.response.write(template.render(template_values))
 
-        upload_url = blobstore.create_upload_url('/upload_photo?stream_name='+str(stream_name))
+        # upload_url = blobstore.create_upload_url('/upload_photo?stream_name='+str(stream_name))
         # [END upload_url]
         # [START upload_form]
         # The method must be "POST" and enctype must be set to "multipart/form-data".
