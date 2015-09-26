@@ -14,13 +14,19 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def user_key(user_id):
+    """Constructs a Datastore key for a Guestbook entity.
+    We use guestbook_name as the key.
+    """
+    return ndb.Key('User', user_id)
+
 class Stream(ndb.Model):
     """Models a Guestbook entry with an author, content, avatar, and date."""
     name = ndb.StringProperty()
     author = ndb.StringProperty()
     tags = ndb.StringProperty(repeated=True)
     picture = ndb.BlobProperty(repeated=True)
-    cover = ndb.BlobProperty()
+    cover = ndb.StringProperty()
     num_of_pics = ndb.IntegerProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -37,39 +43,54 @@ class CreateNewStream(webapp2.RequestHandler):
             url_linktext = 'Login'
 
         template_values = {
-            'user': user,
+            'user_name': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+
         }
 
-        template = JINJA_ENVIRONMENT.get_template('create.html')
+        template = JINJA_ENVIRONMENT.get_template('/htmls/CreateStream.html')
         self.response.write(template.render(template_values))
 
     def post(self):
+        user = users.get_current_user()
+        if user:
 
-        #Create a new Stream
-        newStream = Stream(parent = users.get_current_user().email())
+            getUser = User.query(User.email == user.email())
+            # self.response.write(str(getUser.fetch(1)))
+            global currentUser
+            if getUser.fetch(1):
+                currentUser = getUser.fetch(1)[0]
 
-        newStream.name = self.request.get('stream_name')
-        newStream.tags = self.request.get_all('stream_tags')
-        #Add a cover for the stream
-        cover = self.request.get('cover_image')
-        cover = images.resize(cover, 32, 32)
-        newStream.cover = cover
-        newStream.num_of_pics = 0
-        if users.get_current_user():
-            newStream.author = User(
-                    identity=users.get_current_user().user_id(),
-                    email=users.get_current_user().email())
+            else:
+                currentUser = User(identity = user.user_id(), email = user.email())
+                currentUser.put()
 
-        newStream.content = self.request.get('content')
-        # Add the new stream to the datastore
-        stream_key = newStream.put()
-        # put the new stream into the user's owned stream
-        user = self.request.get('user')
-        user.streams_owned.append(stream_key)
+            #Create a new Stream
+            newStream = Stream(parent = user_key(currentUser.identity))
 
-        self.redirect('/')
+            newStream.name = self.request.get('stream_name')
+            newStream.tags = self.request.get_all('stream_tags')
+            #Add a cover for the stream
+            cover = self.request.get('cover_image')
+            newStream.cover = cover
+            newStream.num_of_pics = 0
+            if users.get_current_user():
+                newStream.author = currentUser.email
+
+            newStream.content = self.request.get('content')
+            # Add the new stream to the datastore
+            stream_key = newStream.put()
+            # put the new stream into the user's owned stream
+
+            currentUser.streams_owned.append(stream_key)
+            currentUser.put()
+
+            self.redirect('/')
+
+        else:
+            self.response.write('Sorry! You are not logging in!')
+
 
 
 # [END CreateNewStream_page]

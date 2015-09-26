@@ -21,7 +21,10 @@ class User(ndb.Model):
     identity = ndb.StringProperty(indexed=False)
     email = ndb.StringProperty(indexed=True)
     streams_owned = ndb.KeyProperty(repeated = True)
-    streams_subscribed = ndb.StringProperty(repeated = True)
+    streams_subscribed = ndb.KeyProperty(repeated = True)
+
+
+
 
 #
 # JINJA_ENVIRONMENT = jinja2.Environment(

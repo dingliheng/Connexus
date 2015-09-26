@@ -2,6 +2,7 @@ import cgi
 import logging
 from Connexus import User
 from CreateStream import Image, CreateNewStream
+import ViewASingleStream
 
 __author__ = 'yusun'
 import os
@@ -39,12 +40,15 @@ class MainPage(webapp2.RequestHandler):
             url_linktext = 'Logout'
             getUser = User.query(User.email == user.email())
 
-            self.response.write(str(getUser.fetch(1)))
+            # self.response.write(str(getUser.fetch(1)))
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
+
+                self.response.write(currentUser)
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
+                self.response.write(streams_key)
                 for stream_key in streams_key:
                     stream = stream_key.get()
                     owned_streams.append(stream)
@@ -59,6 +63,7 @@ class MainPage(webapp2.RequestHandler):
         # for stream in currentUser.streams_owned:
         template_values = {
             'streams': owned_streams,
+            'user_id': currentUser.identity,
             'url': url,
             'url_linktext': url_linktext,
         }
@@ -68,13 +73,14 @@ class MainPage(webapp2.RequestHandler):
 
 
     def post(self):
-        self.request.get('delete')
 
+        # self.request.get('delete')
+        self.response.write('pppppp')
 
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/img', Image),
-                               ('/create', CreateNewStream)
-
+                               ('/create', CreateNewStream),
+                               ('/view', ViewASingleStream.ViewStream)
                                ], debug=True)

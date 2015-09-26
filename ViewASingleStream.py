@@ -1,3 +1,5 @@
+import os
+import jinja2
 from Connexus import User
 from CreateStream import Stream
 
@@ -10,14 +12,19 @@ from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
 
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 
 class ViewStream(webapp2.RequestHandler):
-    def post(self):
+
+    def get(self):
         stream_name = self.request.get('stream_name')
-        stream = Stream.query(Stream.name == stream_name)
+        stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
         # user = User.query(User.email == users.get_current_user().email)
         # Check if the user logs in
-        user = User.query(User.email == users.get_current_user().email)
+        user = User.query(User.email == users.get_current_user().email())
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -25,15 +32,20 @@ class ViewStream(webapp2.RequestHandler):
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
 
+        picture = self.request.get('img')
+        stream.picture.append(picture)
+        stream.num_of_pics = stream.num_of_pics + 1
+        stream.put()
 
-        # Get image data
-        image = self.request.get('img')
-        # Transform the image
-        image = images.resize(image, 32, 32)
-        stream.picture.append(image)
+        template_values = {
 
-        self.redirect('/?' + urllib.urlencode(
-            {'stream_name': stream_name}))
+            'url': url,
+            'url_linktext': url_linktext,
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('/htmls/ViewASingleStream.html')
+        self.response.write(template.render(template_values))
+
 
 # [START subsribe this stream]
 
