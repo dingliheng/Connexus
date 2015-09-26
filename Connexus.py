@@ -6,7 +6,14 @@ import webapp2
 import jinja2
 import urllib
 
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 DEFAULT_STREAM_NAME = 'default_stream'
+
+
 def guestbook_key(guestbook_name=DEFAULT_STREAM_NAME):
     """Constructs a Datastore key for a Guestbook entity.
     We use guestbook_name as the key.

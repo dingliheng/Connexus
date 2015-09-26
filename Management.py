@@ -1,9 +1,12 @@
 import cgi
 import logging
 from Connexus import User
+import SearchStreams
+import TrendingStreams
 from ViewASingleStream import Image
 from CreateStream import CreateNewStream
 import ViewASingleStream
+import ViewAllStreams
 
 __author__ = 'yusun'
 import os
@@ -85,5 +88,8 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/create', CreateNewStream),
                                ('/upload_photo', ViewASingleStream.PhotoUploadHandler),
                                ('/view_photo/([^/]+)?', ViewASingleStream.ViewPhotoHandler),
-                               ('/view', ViewASingleStream.ViewStream)
+                               ('/view', ViewASingleStream.ViewStream),
+                               ('/search', SearchStreams.SearchStreams),
+                               ('/trend', TrendingStreams.TrendStreams),
+                               ('/viewall', ViewAllStreams.ViewAllStreams)
                                ], debug=True)
