@@ -43,7 +43,7 @@ class CreateNewStream(webapp2.RequestHandler):
             url_linktext = 'Login'
 
         template_values = {
-            'user_name': user.user_id(),
+            'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
 
