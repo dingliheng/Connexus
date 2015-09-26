@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+
+<head>
+<title>ViewASingleStream</title>
+<style type="text/css">
+div#above {background-color:#99bbbb;height:100px;border-left: solid #000;border-right:solid #000;border-top:solid #000;}
+div#middle {background-color:#ooooo;border:solid #000}
+div#bottom {background-color:#99bbbb;height:30px;border-left:solid #000 ;border-right:solid #000;border-bottom:solid #000;}
+</style>
+</head>
+
+<body>
+
+<div id="above">
+<body>
+<style type="text/css">
+h1 {text-align: center;font-style:italic;color:#FFFFFF;text-shadow:2px 2px 5px black,-2px 2px 5px grey}
+</style>
+<h1>Connexus</h1>
+</body>
+</div>
+
+<div id="middle">
+<body>
+<style type="text/css">
+h2 {text-align: left}
+</style>
+<h2>&nbsp;Connex.us</h2>&nbsp;
+<a href="">Manage</a>
+&nbsp;|&nbsp;
+<a href="">Create</a>
+&nbsp;|&nbsp;
+<a href="">View</a>
+&nbsp;|&nbsp;
+<a href="">Search</a>
+&nbsp;|&nbsp;
+<a href="">Trending</a>
+&nbsp;|&nbsp;
+<a href="">Social</a>
+<br/>
+<br/>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p>
+<form action="/Create" method="post">
+    {% for stream in streams %}
+    <img src="/i/eg_mouse.jpg"/>
+    {% endfor %}
+    <input type="button" value="More pictures" name="morepicture">
+</form>
+</p>
+
+<p>
+    <form action="/" method="post">
+    <table>
+        <tr>
+            <td><input type="text" value="File Name" name="new_name"></td>
+            <td><input type="text" value="Comments" name="new_comments"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="Upload file" name="upload button"></td>
+            <td>Add an Image</td>
+        </tr>
+    </table>
+</form>
+</p>
+<p>
+    <form action="/" method="post">
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Subscribe" name="subscribebutton">
+</form>
+</p>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+<p></p>
+</body>
+</div>
+
+<div id="bottom">
+</div>
+
+</body>
+</html>
+{% endautoescape %}
