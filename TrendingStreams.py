@@ -24,5 +24,5 @@ class TrendStreams(webapp2.RequestHandler):
             'url_linktext': url_linktext,
         }
 
-        template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/TrendingStream.html')
+        template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/TrendingStreams.html')
         self.response.write(template.render(template_values))

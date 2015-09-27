@@ -48,14 +48,14 @@ class MainPage(webapp2.RequestHandler):
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
-
                 self.response.write(currentUser)
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
                 self.response.write(streams_key)
                 for stream_key in streams_key:
                     stream = stream_key.get()
-                    owned_streams.append(stream)
+                    if stream:
+                        owned_streams.append(stream)
 
             else:
                 currentUser = User(identity = user.user_id(), email = user.email())
@@ -77,11 +77,34 @@ class MainPage(webapp2.RequestHandler):
 
 
     def post(self):
+        user = users.get_current_user()
+        owned_streams = []
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+            getUser = User.query(User.email == user.email())
+            if getUser.fetch(1):
 
-        # self.request.get('delete')
-        self.response.write('pppppp')
+                currentUser = getUser.fetch(1)[0]
 
+                # Get the keys of streams
+                streams_key = currentUser.streams_owned
+                for stream_key in streams_key:
+                    stream = stream_key.get()
+                    # if stream:
+                    if self.request.get(str(stream.key.id())):
+                            currentUser.streams_owned.remove(stream_key)
+                            stream.key.delete()
+                currentUser.put()
+                currentUser.put()
 
+            else:
+                currentUser = User(identity = user.user_id(), email = user.email())
+                currentUser.put()
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
+        self.redirect('/')
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/img', Image),

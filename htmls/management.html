@@ -2,6 +2,7 @@
 {% block title %}Management{% endblock %}
 {% block content %}
 <h2>&nbsp;Streams I own</h2>
+<form action="/" method="post">
 <table>
    <tr>
       <td width="300";align="left">&nbsp;&nbsp;Name</td>
@@ -14,7 +15,7 @@
       <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
       <td width="300";align="right">{{stream.date}}</td>
       <td width="300";align="right">{{stream.num_of_pics}}</td>
-      <td width="300";align="right"><input type="checkbox" name={{stream.name}}></td>
+      <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
    </tr>
    {% endfor %}
 </table>
