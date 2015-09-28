@@ -87,6 +87,7 @@ class CreateNewStream(webapp2.RequestHandler):
 
             currentUser.streams_owned.append(stream_key)
             currentUser.put()
+            currentUser.put()
 
             self.redirect('/')
 

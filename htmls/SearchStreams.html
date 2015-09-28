@@ -2,8 +2,8 @@
 {% block title %}SearchStreams{% endblock %}
 {% block content %}
 <p>
-    <form action="" method="post">
-        &nbsp;&nbsp;<input type="text" name="keyword" value="key word of the stream">
+    <form action="/search" method="post">
+        &nbsp;&nbsp;<input type="text" name="keywords" value="key word of the stream">
         <br/>
         <br/>
         &nbsp;&nbsp;<input type="submit" name="search" value="Search">
@@ -13,8 +13,9 @@
     <br/>
     &nbsp;&nbsp;click on an image to view stream
     {% for stream in streams %}
-            <img src="">
-            <br/>
+        <p>
+            <img src="">&nbsp;&nbsp;{{ stream.name }}
+        </p>
     {% endfor %}
 </p>
 {% endblock %}
