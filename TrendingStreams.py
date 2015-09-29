@@ -1,3 +1,5 @@
+from datetime import datetime
+import datetime
 __author__ = 'yusun'
 import cgi
 import urllib
@@ -7,7 +9,7 @@ import Connexus
 from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
-
+from CreateStream import Stream
 class TrendStreams(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -17,11 +19,19 @@ class TrendStreams(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
+        while(1 and len(Connexus.count_queue) > 0 ):
+            datetime_in_queue = Connexus.count_queue.pop()
+            if (datetime.now() - datetime_in_queue[1]) >= datetime.timedelta(hours=1):
+                stream = Stream.query(Stream.name == datetime_in_queue[0]).fetch(1)[0]
+                stream.num_of_late_views = stream.num_of_late_views - 1
+            else:
+                Connexus.count_queue.appendleft(datetime_in_queue)
+                break
 
-        streams = CreateStream.Stream.query().fetch(3)
+        streams = Stream.query().order(-Stream.num_of_late_views).fetch(3)
 
         template_values = {
-            # 'stream_name': stream_name,
+            'streams': streams,
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,

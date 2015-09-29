@@ -19,6 +19,7 @@ class ViewAllStreams(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
+
         # Fetch 5 streams
         streams = CreateStream.Stream.query().fetch(10)
         # for stream in streams:

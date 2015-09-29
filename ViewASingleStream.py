@@ -1,6 +1,7 @@
 import os
 import jinja2
 from Connexus import User
+import Connexus
 from CreateStream import Stream
 import datetime
 
@@ -37,6 +38,8 @@ class ViewStream(webapp2.RequestHandler):
             url_linktext = 'Login'
         # if stream.num_of_views:
         stream.num_of_views = stream.num_of_views + 1
+        stream.num_of_late_views = stream.num_of_late_views + 1
+        Connexus.count_queue.append((stream.name, datetime.datetime.now()))
         stream.put()
         self.response.write("stream has been viewed: " + str(stream.num_of_views))
 

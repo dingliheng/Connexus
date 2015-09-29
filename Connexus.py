@@ -1,4 +1,4 @@
-
+from collections import deque
 
 __author__ = 'yusun'
 from google.appengine.api import users
@@ -8,6 +8,8 @@ import webapp2
 import jinja2
 import urllib
 from google.appengine.api import images
+
+count_queue = deque()
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
