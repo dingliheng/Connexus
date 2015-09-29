@@ -35,6 +35,7 @@ class ViewStream(webapp2.RequestHandler):
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
 
+
         # for picture in stream.blob_key:
         #     self.send_blob(picture)
             # self.response.headers['Content-Type'] = 'image/png'
@@ -47,8 +48,11 @@ class ViewStream(webapp2.RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload_photo?stream_name='+str(stream_name))
         # self.redirect('/img?stream_name='+str(stream_name))
+
+        cover_url = stream.cover
         template_values = {
             'stream_name': stream_name,
+            'cover_url': cover_url,
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
@@ -68,16 +72,16 @@ class ViewStream(webapp2.RequestHandler):
             name="submit" value="Submit"> </form></body></html>''')
         # [END upload_form]
 
-    def post(self):
-        stream_name = self.request.get('stream_name')
-        stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
-        picture = self.request.get('new_img')
-        stream.picture.append(picture)
-        stream.num_of_pics = stream.num_of_pics + 1
-        stream.put()
-
-        query_params = {'stream_name': stream_name}
-        self.redirect('/view?' + urllib.urlencode(query_params))
+    # def post(self):
+    #     stream_name = self.request.get('stream_name')
+    #     stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
+    #     picture = self.request.get('new_img')
+    #     stream.picture.append(picture)
+    #     stream.num_of_pics = stream.num_of_pics + 1
+    #     stream.put()
+    #
+    #     query_params = {'stream_name': stream_name}
+    #     self.redirect('/view?' + urllib.urlencode(query_params))
 
 # A custom datastore model for associating users with uploaded files.
 class UserPhoto(ndb.Model):

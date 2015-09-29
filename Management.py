@@ -89,7 +89,7 @@ class MainPage(webapp2.RequestHandler):
 
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
-                for stream_key in streams_key:
+                for stream_key in streams_key[:]:
                     stream = stream_key.get()
                     # if stream:
                     if self.request.get(str(stream.key.id())):

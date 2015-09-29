@@ -2,12 +2,14 @@ import cgi
 import os
 import urllib
 import jinja2
+from google.appengine.api import urlfetch
 import webapp2
 
 from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
 from Connexus import User
+from google.appengine.api import mail
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -25,7 +27,7 @@ class Stream(ndb.Model):
     name = ndb.StringProperty()
     author = ndb.StringProperty()
     tags = ndb.StringProperty(repeated=True)
-    picture = ndb.BlobProperty(repeated=True)
+    # picture = ndb.BlobProperty(repeated=True)
     blob_key = ndb.BlobKeyProperty(repeated=True)
     cover = ndb.StringProperty()
     num_of_pics = ndb.IntegerProperty()
@@ -74,8 +76,9 @@ class CreateNewStream(webapp2.RequestHandler):
             newStream.name = self.request.get('stream_name')
             newStream.tags = self.request.get_all('stream_tags')
             #Add a cover for the stream
-            cover = self.request.get('cover_image')
-            newStream.cover = cover
+            cover_url = self.request.get('cover_image')
+            newStream.cover = cover_url
+            # Set the num of images to 0
             newStream.num_of_pics = 0
             if users.get_current_user():
                 newStream.author = currentUser.email
@@ -87,11 +90,24 @@ class CreateNewStream(webapp2.RequestHandler):
 
             currentUser.streams_owned.append(stream_key)
             currentUser.put()
+            # Start to send invitation emails to friends!
+            to_addrs = self.request.get("invitation_emails").split( )
+            for email in to_addrs:
+                if not mail.is_email_valid(email):
+                    # Return an error message...
+                    pass
+                message = mail.EmailMessage()
+                message.sender = user.email()
+                message.to = email
+                message.body = self.request.get("invatation_message")
+                message.send()
 
             self.redirect('/')
 
         else:
-            self.response.write('Sorry! You are not logging in!')
+            login_url = users.create_login_url(self.request.path)
+            self.redirect(login_url)
+            return
 
 
 
