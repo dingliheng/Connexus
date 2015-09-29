@@ -53,7 +53,7 @@ class MainPage(webapp2.RequestHandler):
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
                 # streams_key = currentUser.streams_searched
-                # self.response.write(streams_key)
+                # self.response.write(streams_key[0].get().num_of_views+1)
                 for stream_key in streams_key:
                     stream = stream_key.get()
                     if stream:
@@ -86,7 +86,6 @@ class MainPage(webapp2.RequestHandler):
 
     def post(self):
         user = users.get_current_user()
-        streams_key_deleted = []
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -94,8 +93,9 @@ class MainPage(webapp2.RequestHandler):
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
+                # currentUser.streams_owned = []
+                # currentUser.put()
 
-                # Get the keys of streams
                 streams_key = currentUser.streams_owned
 
                 for stream_key in streams_key[:]:
@@ -106,8 +106,7 @@ class MainPage(webapp2.RequestHandler):
                             for stream_key_searched in currentUser.streams_searched:
                                 if stream_key_searched == stream_key:
                                     currentUser.streams_searched.remove(stream_key)
-                                    streams_key_deleted.append(stream_key)
-                            stream.key.delete()
+                            stream_key.delete()
                 currentUser.put()
                 currentUser.put()
 

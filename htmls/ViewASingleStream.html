@@ -13,24 +13,24 @@
 </p>
 
 <p>
-    <tr>
-            <td><img src="{{cover_url}}"></td>
-    </tr>
+    {% for blob_key in stream_blob_key[::-1] %}
+             &nbsp;&nbsp;<img src="/view_photo/{{ blob_key }}">
+    {% endfor %}
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>Upload File: <input type="file" name="file"></td>
-            <td><input type="text" value="Comments" name="new_comments"></td>
+            <td>&nbsp;&nbsp;Upload File: <input type="file" name="file"></td>
+            <td>&nbsp;&nbsp;<input type="text" value="Comments" name="new_comments"></td>
         </tr>
-        <tr>
-            <td><img src="/img?stream_name={{stream_name}}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Submit" name="submit"></td>
+{#        <tr>#}
+{#            <td><img src="/img?stream_name={{stream_name}}"></td>#}
+{#        </tr>#}
+            <td>&nbsp;&nbsp;<input type="submit" value="Submit" name="submit"></td>
         </tr>
     </table>
 </form>
 </p>
+    <br>
 <p>
     <form action="/subscribe?stream_name={{stream_name}}" method="post">
     &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Subscribe" name="subscribebutton">
@@ -38,3 +38,4 @@
 </p>
 
 {% endblock %}
+

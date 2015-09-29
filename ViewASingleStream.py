@@ -2,6 +2,7 @@ import os
 import jinja2
 from Connexus import User
 from CreateStream import Stream
+import datetime
 
 __author__ = 'yusun'
 import cgi
@@ -34,6 +35,7 @@ class ViewStream(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
+        # if stream.num_of_views:
         stream.num_of_views = stream.num_of_views + 1
         stream.put()
         self.response.write("stream has been viewed: " + str(stream.num_of_views))
@@ -45,8 +47,8 @@ class ViewStream(webapp2.RequestHandler):
             # self.response.out.write('<img src="/img?stream_name=%s"></img>' %
             #                         stream_name)
         # self.response.out.write(stream.picture[0])
-        for blob_key in stream.blob_key:
-            self.response.out.write('<img src="/view_photo/%s"</img>'% blob_key)
+        # for blob_key in stream.blob_key:
+        #     self.response.out.write('<img src="/view_photo/%s"</img>'% blob_key)
 
         upload_url = blobstore.create_upload_url('/upload_photo?stream_name='+str(stream_name))
         # self.redirect('/img?stream_name='+str(stream_name))
@@ -54,6 +56,8 @@ class ViewStream(webapp2.RequestHandler):
         cover_url = stream.cover
         template_values = {
             'stream_name': stream_name,
+            # "stream.num_of_views":stream.num_of_views,
+            "stream_blob_key":stream.blob_key,
             'cover_url': cover_url,
             'user_id': user.user_id(),
             'url': url,
@@ -68,10 +72,10 @@ class ViewStream(webapp2.RequestHandler):
         # [END upload_url]
         # [START upload_form]
         # The method must be "POST" and enctype must be set to "multipart/form-data".
-        self.response.out.write('<html><body>')
-        self.response.out.write('<form action="%s" method="POST" enctype="multipart/form-data">' % upload_url)
-        self.response.out.write('''Upload File: <input type="file" name="file"><br> <input type="submit"
-            name="submit" value="Submit"> </form></body></html>''')
+        # self.response.out.write('<html><body>')
+        # self.response.out.write('<form action="%s" method="POST" enctype="multipart/form-data">' % upload_url)
+        # self.response.out.write('''Upload File: <input type="file" name="file"><br> <input type="submit"
+        #     name="submit" value="Submit"> </form></body></html>''')
         # [END upload_form]
 
     # def post(self):
@@ -100,9 +104,13 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
 
             upload = self.get_uploads()[0]
+            stream.num_of_pics = stream.num_of_pics+1
+            stream.date = datetime.datetime.now()
             stream.blob_key.append(upload.key())
             stream.put()
-            self.redirect('/view_photo/%s' % upload.key())
+            stream.put()
+            # self.redirect('/view_photo/%s' % upload.key())
+            self.redirect('/view?stream_name=%s' % stream_name)
 
         except:
             self.error(500)
