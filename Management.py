@@ -39,6 +39,7 @@ class MainPage(webapp2.RequestHandler):
 
         user = users.get_current_user()
         owned_streams = []
+        subscribed_streams = []
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -58,6 +59,11 @@ class MainPage(webapp2.RequestHandler):
                     if stream:
                         owned_streams.append(stream)
 
+                for stream_key in currentUser.streams_subscribed:
+                    stream_subscribed = stream_key.get()
+                    if stream_subscribed:
+                        subscribed_streams.append(stream_subscribed)
+
             else:
                 currentUser = User(identity = user.user_id(), email = user.email())
                 currentUser.put()
@@ -68,6 +74,7 @@ class MainPage(webapp2.RequestHandler):
         # for stream in currentUser.streams_owned:
         template_values = {
             'streams': owned_streams,
+            'subscribed_streams': subscribed_streams,
             'user_id': currentUser.identity,
             'url': url,
             'url_linktext': url_linktext,
@@ -115,6 +122,7 @@ class MainPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/', MainPage),
                                # ('/img', Image),
                                ('/create', CreateNewStream),
+                               ('/subscribe', ViewASingleStream.Subscribe),
                                ('/upload_photo', ViewASingleStream.PhotoUploadHandler),
                                ('/view_photo/([^/]+)?', ViewASingleStream.ViewPhotoHandler),
                                ('/view', ViewASingleStream.ViewStream),

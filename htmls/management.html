@@ -32,13 +32,13 @@
          <td width="150";align="right">Views</td>
          <td width="150";align="right">Unsubscribe</td>
       </tr>
-      {% for name in names %}
+      {% for stream in subscribed_streams %}
       <tr>
-         <td width="300";align="left">&nbsp;&nbsp;<a href="">{{name}}</a></td>
-         <td width="300";align="right">Last New Picture</td>
-         <td width="300";align="right">Number of Pictures</td>
-         <td width="150";align="right">Views</td>
-         <td width="150";align="right"><input type="checkbox"></td>
+         <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+         <td width="300";align="right">{{stream.date}}</td>
+         <td width="300";align="right">{{stream.num_of_pics}}</td>
+         <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
+
       </tr>
       {% endfor %}
    </table>

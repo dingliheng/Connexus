@@ -140,13 +140,28 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
 # [START subsribe this stream]
 
-class Subsribe(webapp2.RequestHandler):
+class Subscribe(webapp2.RequestHandler):
     def post(self):
-
-        user = User.query(User.email == users.get_current_user().email)
+        user = users.get_current_user()
         if user:
-            stream = self.request.get('stream')
-            user.fetch(1)[0].stream_subsribed.append(stream.key())
-            self.response.out.write('Subsribe success!')
+
+            getUser = User.query(User.email == user.email())
+            # self.response.write(str(getUser.fetch(1)))
+            global currentUser
+            if getUser.fetch(1):
+                currentUser = getUser.fetch(1)[0]
+
+            else:
+                currentUser = User(identity = user.user_id(), email = user.email())
+                currentUser.put()
+
+            stream_name = self.request.get('stream_name')
+            stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
+            currentUser.streams_subscribed.append(stream.key)
+            currentUser.put()
+            currentUser.put()
+            self.redirect('/')
+
+        # User has not been logged in
         else:
              self.redirect(users.create_login_url(self.request.uri))

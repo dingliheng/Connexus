@@ -1,4 +1,5 @@
 import cgi
+import logging
 import os
 import urllib
 import jinja2
@@ -57,7 +58,7 @@ class CreateNewStream(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
-        self.response.write("qqqqqq")
+
         user = users.get_current_user()
         if user:
 
@@ -96,13 +97,15 @@ class CreateNewStream(webapp2.RequestHandler):
             # Start to send invitation emails to friends!
             to_addrs = self.request.get("invitation_emails").split( )
             for email in to_addrs:
+                logging.debug("value of my var is %s", str(email))
                 if not mail.is_email_valid(email):
                     # Return an error message...
                     pass
                 message = mail.EmailMessage()
                 message.sender = user.email()
                 message.to = email
-                message.body = self.request.get("invatation_message")
+                message.subject = "Invitation for subscribing a NEW stream!"
+                message.body = self.request.get("invitation_message")
                 message.send()
 
 
