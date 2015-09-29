@@ -18,20 +18,8 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 
-# JINJA_ENVIRONMENT = jinja2.Environment(
-#     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-#     extensions=['jinja2.ext.autoescape'],
-#     autoescape=True)
-
-class LoginHandler(webapp2.RequestHandler):
-    def get(self):
-        template = JINJA_ENVIRONMENT.get_template('/htmls/login.html')
-        outstr = template.render({})
-        self.response.write(outstr)
 
 
-    def post(self):
-        self.redirect(users.create_login_url(self.request.uri))
 
 
 class MainPage(webapp2.RequestHandler):
@@ -50,11 +38,10 @@ class MainPage(webapp2.RequestHandler):
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
-                self.response.write(currentUser)
+                # self.response.write(currentUser)
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
-                # streams_key = currentUser.streams_searched
-                # self.response.write(streams_key[0].get().num_of_views+1)
+
                 for stream_key in streams_key:
                     stream = stream_key.get()
                     if stream:
@@ -94,9 +81,6 @@ class MainPage(webapp2.RequestHandler):
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
-                # currentUser.streams_owned = []
-                # currentUser.streams_subscribed = []
-                # currentUser.put()
 
                 streams_key = currentUser.streams_owned
                 if self.request.get("delete"):
