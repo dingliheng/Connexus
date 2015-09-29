@@ -133,5 +133,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/view', ViewASingleStream.ViewStream),
                                ('/search', SearchStreams.SearchStreams),
                                ('/trend', TrendingStreams.TrendStreams),
-                               ('/viewall', ViewAllStreams.ViewAllStreams)
+                               ('/viewall', ViewAllStreams.ViewAllStreams),
+                               ('/trench', TrendingStreams.TrendStreams)
                                ], debug=True)
