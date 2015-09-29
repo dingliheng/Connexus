@@ -17,6 +17,9 @@ class TrendStreams(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
+
+        streams = CreateStream.Stream.query().fetch(3)
+
         template_values = {
             # 'stream_name': stream_name,
             'user_id': user.user_id(),

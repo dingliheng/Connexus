@@ -12,6 +12,7 @@
    </tr>
    {% for stream in streams %}
    <tr>
+      <td width="300";align="left"><img src="{{stream.cover}}" width="200" height="150"></a></td>
       <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
       <td width="300";align="right">{{stream.date}}</td>
       <td width="300";align="right">{{stream.num_of_pics}}</td>
@@ -34,6 +35,7 @@
       </tr>
       {% for stream in subscribed_streams %}
       <tr>
+
          <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
          <td width="300";align="right">{{stream.date}}</td>
          <td width="300";align="right">{{stream.num_of_pics}}</td>

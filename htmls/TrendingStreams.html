@@ -4,5 +4,13 @@
 <p>
     <h2>Top 3 Trending Streams</h2>
     <br/>
+ {% for stream in streams %}
+   <tr>
+      <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+      <td width="300";align="right">{{stream.date}}</td>
+      <td width="300";align="right">{{stream.num_of_pics}}</td>
+      <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
+   </tr>
+   {% endfor %}
 </p>
 {% endblock %}

@@ -1,9 +1,10 @@
 import cgi
 import logging
+from google.appengine.api.images import get_serving_url
 from Connexus import User
 import SearchStreams
 import TrendingStreams
-
+import Connexus
 from CreateStream import CreateNewStream
 import ViewASingleStream
 import ViewAllStreams
@@ -17,10 +18,10 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+# JINJA_ENVIRONMENT = jinja2.Environment(
+#     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+#     extensions=['jinja2.ext.autoescape'],
+#     autoescape=True)
 
 class LoginHandler(webapp2.RequestHandler):
     def get(self):
@@ -70,17 +71,18 @@ class MainPage(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
-
+        stream_cover = images.get_serving_url(stream.cover)
         # for stream in currentUser.streams_owned:
         template_values = {
             'streams': owned_streams,
+
             'subscribed_streams': subscribed_streams,
             'user_id': currentUser.identity,
             'url': url,
             'url_linktext': url_linktext,
         }
 
-        template = JINJA_ENVIRONMENT.get_template('/htmls/management.html')
+        template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/management.html')
         self.response.write(template.render(template_values))
 
 

@@ -1,3 +1,5 @@
+
+
 __author__ = 'yusun'
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -5,12 +7,13 @@ import os
 import webapp2
 import jinja2
 import urllib
-
+from google.appengine.api import images
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+JINJA_ENVIRONMENT.filters['get_serving_url'] = images.get_serving_url
 DEFAULT_STREAM_NAME = 'default_stream'
 
 
