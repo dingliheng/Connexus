@@ -29,9 +29,8 @@ class User(ndb.Model):
     email = ndb.StringProperty(indexed=True)
     streams_owned = ndb.KeyProperty(repeated = True)
     streams_subscribed = ndb.KeyProperty(repeated = True)
-
-
-
+    streams_searched = ndb.KeyProperty(repeated = True)
+    keyword = ndb.StringProperty(indexed=False)
 
 #
 # JINJA_ENVIRONMENT = jinja2.Environment(
