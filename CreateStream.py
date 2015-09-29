@@ -90,7 +90,7 @@ class CreateNewStream(webapp2.RequestHandler):
 
             currentUser.streams_owned.append(stream_key)
             currentUser.put()
-<<<<<<< HEAD
+            currentUser.put()
             # Start to send invitation emails to friends!
             to_addrs = self.request.get("invitation_emails").split( )
             for email in to_addrs:
@@ -102,9 +102,7 @@ class CreateNewStream(webapp2.RequestHandler):
                 message.to = email
                 message.body = self.request.get("invatation_message")
                 message.send()
-=======
-            currentUser.put()
->>>>>>> origin/master
+
 
             self.redirect('/')
 
