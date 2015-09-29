@@ -23,7 +23,7 @@ class ViewStream(webapp2.RequestHandler):
 
     def get(self):
         stream_name = self.request.get('stream_name')
-        self.response.write(stream_name)
+        self.response.write(stream_name + " ")
         stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
         # user = User.query(User.email == users.get_current_user().email)
         # Check if the user logs in
@@ -34,7 +34,9 @@ class ViewStream(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
-
+        stream.num_of_views = stream.num_of_views + 1
+        stream.put()
+        self.response.write("stream has been viewed: " + str(stream.num_of_views))
 
         # for picture in stream.blob_key:
         #     self.send_blob(picture)
@@ -116,24 +118,24 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
             self.send_blob(photo_key)
 # [END download_handler]
 
-class Image(webapp2.RequestHandler):
-    def get(self):
-        stream_name = self.request.get('stream_name')
-        stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
-        self.response.write(stream.picture)
-        if stream.picture[0]:
-            self.response.write("aa")
-            # self.response.headers['Content-Type'] = 'image/png'
-            self.response.write(stream.picture[1])
-        else:
-            self.response.out.write('No image')
-        # self.response.out.write("t")
-        # for picture in stream.picture:
-        #     self.response.headers['Content-Type'] = 'image/png'
-        #     self.response.out.write("j")
-        #     self.response.out.write(picture)
-        # else:
-        #     self.response.out.write('No image')
+# class Image(webapp2.RequestHandler):
+#     def get(self):
+#         stream_name = self.request.get('stream_name')
+#         stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
+#         self.response.write(stream.picture)
+#         if stream.picture[0]:
+#             self.response.write("aa")
+#             # self.response.headers['Content-Type'] = 'image/png'
+#             self.response.write(stream.picture[1])
+#         else:
+#             self.response.out.write('No image')
+#         # self.response.out.write("t")
+#         # for picture in stream.picture:
+#         #     self.response.headers['Content-Type'] = 'image/png'
+#         #     self.response.out.write("j")
+#         #     self.response.out.write(picture)
+#         # else:
+#         #     self.response.out.write('No image')
 
 
 # [START subsribe this stream]

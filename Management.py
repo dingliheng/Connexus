@@ -3,7 +3,7 @@ import logging
 from Connexus import User
 import SearchStreams
 import TrendingStreams
-from ViewASingleStream import Image
+
 from CreateStream import CreateNewStream
 import ViewASingleStream
 import ViewAllStreams
@@ -113,7 +113,7 @@ class MainPage(webapp2.RequestHandler):
         self.redirect('/')
 
 app = webapp2.WSGIApplication([('/', MainPage),
-                               ('/img', Image),
+                               # ('/img', Image),
                                ('/create', CreateNewStream),
                                ('/upload_photo', ViewASingleStream.PhotoUploadHandler),
                                ('/view_photo/([^/]+)?', ViewASingleStream.ViewPhotoHandler),

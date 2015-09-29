@@ -31,6 +31,7 @@ class Stream(ndb.Model):
     blob_key = ndb.BlobKeyProperty(repeated=True)
     cover = ndb.StringProperty()
     num_of_pics = ndb.IntegerProperty()
+    num_of_views = ndb.IntegerProperty()
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 
@@ -80,6 +81,7 @@ class CreateNewStream(webapp2.RequestHandler):
             newStream.cover = cover_url
             # Set the num of images to 0
             newStream.num_of_pics = 0
+            newStream.num_of_views = 0
             if users.get_current_user():
                 newStream.author = currentUser.email
 
