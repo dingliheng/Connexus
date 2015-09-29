@@ -31,7 +31,7 @@ class SearchStreams(webapp2.RequestHandler):
 
                 currentUser = getUser.fetch(1)[0]
                 streams_key = currentUser.streams_searched
-                self.response.write(currentUser)
+                # self.response.write(currentUser)
                 for stream_key in streams_key:
                     if stream_key in currentUser.streams_owned:
                         pass
