@@ -5,15 +5,16 @@
 <form action="/" method="post">
 <table>
    <tr>
-      <td width="300";align="left">&nbsp;&nbsp;Name</td>
-      <td width="300";align="right">Last New Picture</td>
-      <td width="300";align="right">Number of Pictures</td>
-      <td width="300";align="right">Delete</td>
+       <td width="300";align="left">&nbsp;&nbsp;Cover</td>
+       <td width="300";align="right">&nbsp;&nbsp;Name</td>
+       <td width="300";align="right">Last New Picture</td>
+       <td width="300";align="right">Number of Pictures</td>
+       <td width="300";align="right">Delete</td>
    </tr>
    {% for stream in streams %}
    <tr>
-      <td width="300";align="left"><img src="{{stream.cover}}" width="200" height="150"></a></td>
-      <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+      <td width="300";align="left"><img src="{{stream.cover}}" width="200" height="150"></td>
+      <td width="300";align="right">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
       <td width="300";align="right">{{stream.date}}</td>
       <td width="300";align="right">{{stream.num_of_pics}}</td>
       <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
@@ -21,13 +22,14 @@
    {% endfor %}
 </table>
 <br/>
-&nbsp;&nbsp;<input type="submit" value="Delete Checked">
+&nbsp;&nbsp;<input type="submit" value="Delete Checked" name="delete">
 </form>
 <h2>&nbsp;Streams I subscribe to</h2>
-<form>
+<form action="/" method="post">
    <table>
       <tr>
-         <td width="300";align="left">&nbsp;&nbsp;Name</td>
+          <td width="300";align="left">&nbsp;&nbsp;Cover</td>
+         <td width="300";align="right">&nbsp;&nbsp;Name</td>
          <td width="300";align="right">Last New Picture</td>
          <td width="300";align="right">Number of Pictures</td>
          <td width="150";align="right">Views</td>
@@ -35,16 +37,16 @@
       </tr>
       {% for stream in subscribed_streams %}
       <tr>
-
-         <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+          <td width="300";align="left"><img src="{{stream.cover}}" width="200" height="150"></td>
+         <td width="300";align="right">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
          <td width="300";align="right">{{stream.date}}</td>
          <td width="300";align="right">{{stream.num_of_pics}}</td>
+          <td width="300";align="right">{{stream.num_of_views}}</td>
          <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
-
       </tr>
       {% endfor %}
    </table>
    <br>
-   &nbsp;&nbsp;<input type="submit" value="Unsubscribe Checked Streams">
+   &nbsp;&nbsp;<input type="submit" value="Unsubscribe Checked Streams" name="unsubscribe">
 </form>
 {% endblock %}

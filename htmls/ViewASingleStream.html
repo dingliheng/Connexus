@@ -13,12 +13,10 @@
 </p>
 
 <p>
-     <tr>
-            <td><img src="{{cover_url}}" width="200" height="150" ></td>
-    </tr>
     {% for blob_key in stream_blob_key[::-1] %}
              &nbsp;&nbsp;<img src="/view_photo/{{ blob_key }}">
     {% endfor %}
+            <img src="{{cover_url}}" width="200" height="150" >
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
     <table>
         <tr>

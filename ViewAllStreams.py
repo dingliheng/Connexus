@@ -15,11 +15,14 @@ class ViewAllStreams(webapp2.RequestHandler):
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+        
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
         # Fetch 5 streams
         streams = CreateStream.Stream.query().fetch(10)
+        # for stream in streams:
+        #     stream.key.delete()
 
         template_values = {
             # 'stream_name': stream_name,

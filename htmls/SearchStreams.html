@@ -14,7 +14,17 @@
     &nbsp;&nbsp;click on an image to view stream
     {% for stream in streams %}
         <p>
-            <img src="">&nbsp;&nbsp;{{ stream.name }}
+            <table>
+            <tr>
+                <td>
+                    &nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"></a>
+                </td>
+                </tr>
+                <tr>
+                <td><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+                <br/>
+            </tr>
+            </table>
         </p>
     {% endfor %}
 </p>

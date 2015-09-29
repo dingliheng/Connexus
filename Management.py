@@ -71,11 +71,10 @@ class MainPage(webapp2.RequestHandler):
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
-        stream_cover = images.get_serving_url(stream.cover)
+        # stream_cover = images.get_serving_url(stream.cover)
         # for stream in currentUser.streams_owned:
         template_values = {
             'streams': owned_streams,
-
             'subscribed_streams': subscribed_streams,
             'user_id': currentUser.identity,
             'url': url,
@@ -96,19 +95,24 @@ class MainPage(webapp2.RequestHandler):
 
                 currentUser = getUser.fetch(1)[0]
                 # currentUser.streams_owned = []
+                # currentUser.streams_subscribed = []
                 # currentUser.put()
 
                 streams_key = currentUser.streams_owned
-
-                for stream_key in streams_key[:]:
-                    stream = stream_key.get()
-                    # if stream:
-                    if self.request.get(str(stream.key.id())):
-                            currentUser.streams_owned.remove(stream_key)
-                            for stream_key_searched in currentUser.streams_searched:
-                                if stream_key_searched == stream_key:
-                                    currentUser.streams_searched.remove(stream_key)
-                            stream_key.delete()
+                if self.request.get("delete"):
+                    for stream_key in streams_key[:]:
+                        stream = stream_key.get()
+                        if self.request.get(str(stream.key.id())):
+                                currentUser.streams_owned.remove(stream_key)
+                                for stream_key_searched in currentUser.streams_searched:
+                                    if stream_key_searched == stream_key:
+                                        currentUser.streams_searched.remove(stream_key)
+                                stream_key.delete()
+                if self.request.get("unsubscribe"):
+                    for stream_key in streams_key[:]:
+                        stream = stream_key.get()
+                        if self.request.get(str(stream.key.id())):
+                                currentUser.streams_subscribed.remove(stream_key)
                 currentUser.put()
                 currentUser.put()
 
