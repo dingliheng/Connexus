@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import datetime
 __author__ = 'yusun'
 import cgi
 import urllib
@@ -21,7 +21,7 @@ class TrendStreams(webapp2.RequestHandler):
             url_linktext = 'Login'
         while(1 and len(Connexus.count_queue) > 0 ):
             datetime_in_queue = Connexus.count_queue.pop()
-            if (datetime.now() - datetime_in_queue[1]).hour >= 1:
+            if (datetime.now() - datetime_in_queue[1]) >= datetime.timedelta(hours=1):
                 stream = Stream.query(Stream.name == datetime_in_queue[0]).fetch(1)[0]
                 stream.num_of_late_views = stream.num_of_late_views - 1
             else:
