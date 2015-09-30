@@ -20,7 +20,7 @@ div#footer {clear:both;text-align:center;}
     <div id="{{stream.name}}">
     <table>
         <tr>
-            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"></a></td>
+            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"  width="200" height="150"></a></td>
         </tr>
         <tr>
             <td align="center">{{stream.num_of_views}} views in past hour</td>
@@ -28,12 +28,34 @@ div#footer {clear:both;text-align:center;}
     </table>
     </div>
     {% endfor %}
-<div id="menu">"加点东西"</div>
+<div id="menu">
+    <form action="" method="">
+        <table>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t0" type="checkbox" value="No reports">No reports</td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t1" type="checkbox" value="Every 5 minutes">Every 5 minutes</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t3" type="checkbox" value="Every 1 hour">Every 1 hour</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t4" type="checkbox" value="Every day">Every day</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email trending report</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="update" type="submit" value="Update rate"></td>
+            </tr>
+            </table>
+    </form>
+</div>
 <div id="footer"></div>
 
 </div>
 
 </body>
-   {% endfor %}
 </p>
 {% endblock %}

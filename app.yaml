@@ -20,7 +20,6 @@ threadsafe: yes
 handlers:
 - url: /trend
   script: TrendingStreams.app
-  login: admin
 
 - url: /.*
   script: Management.app

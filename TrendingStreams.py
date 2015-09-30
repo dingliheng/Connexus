@@ -29,7 +29,6 @@ class TrendStreams(webapp2.RequestHandler):
             else:
                 Connexus.count_queue.appendleft(datetime_in_queue)
                 break
-        num
         streams = Stream.query().order(-Stream.num_of_late_views).fetch(3)
         # Prepare for the mail content
         mail_content = "The most popular three streams are as follows:\n"
