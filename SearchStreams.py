@@ -81,16 +81,14 @@ class SearchStreams(webapp2.RequestHandler):
                 currentUser.keyword = keyword
                 currentUser.put()
                 currentUser.put()
-                # Get the keys of streams
-                streams_key = currentUser.streams_owned
-                for stream_key in streams_key:
-                    stream = stream_key.get()
-                    if stream:
-                        owned_streams.append(stream)
-                for stream in owned_streams:
+                streams = CreateStream.Stream.query().fetch(50)
+                for stream in streams:
+                    content = ""
+                    for tag in stream.tags:
+                        content = content+" "+tag
                     document = search.Document(
                         doc_id = str(stream.key.id()),
-                        fields = [search.TextField(name = "streams_owned",value=stream.name)]
+                        fields = [search.TextField(name = "streams_owned",value=stream.name+content)]
                     )
                     documents.append(document)
                 self.response.write(documents)
@@ -102,7 +100,7 @@ class SearchStreams(webapp2.RequestHandler):
                         n = 0
                         for result in results:
                             if n < 5:
-                                for stream in owned_streams:
+                                for stream in streams:
                                     if long(result.doc_id) == stream.key.id():
                                         currentUser.streams_searched.append(stream.key)
                                         n = n+1

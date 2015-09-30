@@ -4,13 +4,36 @@
 <p>
     <h2>Top 3 Trending Streams</h2>
     <br/>
- {% for stream in streams %}
-   <tr>
-      <td width="300";align="left">&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
-      <td width="300";align="right">{{stream.date}}</td>
-      <td width="300";align="right">{{stream.num_of_pics}}</td>
-      <td width="300";align="right"><input type="checkbox" name="{{stream.key.id()}}"></td>
-   </tr>
+<style type="text/css">
+div#container{width:800px}
+{%  for stream in streams %}
+div#{{stream.name}} {height:200px;width:200px;float:left;}
+{% endfor %}
+div#menu{height:200px;width:200px;float:left;}
+div#footer {clear:both;text-align:center;}
+</style>
+
+<body>
+
+<div id="container">
+    {% for stream in streams %}
+    <div id="{{stream.name}}">
+    <table>
+        <tr>
+            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"></a></td>
+        </tr>
+        <tr>
+            <td align="center">{{stream.num_of_views}} views in past hour</td>
+        </tr>
+    </table>
+    </div>
+    {% endfor %}
+<div id="menu">"加点东西"</div>
+<div id="footer"></div>
+
+</div>
+
+</body>
    {% endfor %}
 </p>
 {% endblock %}
