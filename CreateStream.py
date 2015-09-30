@@ -74,6 +74,11 @@ class CreateNewStream(webapp2.RequestHandler):
                 currentUser.put()
 
             #Create a new Stream
+            if Stream.query(Stream.name == self.request.get('stream_name')).count == 0:
+                self.response.write("Repeated Name!!")
+                self.redirect(self.request.url)
+                return
+
             newStream = Stream(parent = user_key(currentUser.identity))
 
             newStream.name = self.request.get('stream_name')

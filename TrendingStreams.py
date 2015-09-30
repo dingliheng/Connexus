@@ -10,6 +10,8 @@ from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
 from CreateStream import Stream
+from google.appengine.api import mail
+num = 5
 class TrendStreams(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -27,8 +29,21 @@ class TrendStreams(webapp2.RequestHandler):
             else:
                 Connexus.count_queue.appendleft(datetime_in_queue)
                 break
-
+        num
         streams = Stream.query().order(-Stream.num_of_late_views).fetch(3)
+        # Prepare for the mail content
+        mail_content = "The most popular three streams are as follows:\n"
+        for stream in streams:
+            mail_content = mail_content + str(stream.name) + "has been recently viewed for" + str(stream.num_of_late_views) + "times!\n"
+        mail_content = mail_content + "Thank you for following us~\n"
+        # Send the notification to specified user
+        email="yusun@utexas.edu"
+        message = mail.EmailMessage()
+        message.sender = "info@connexuselvis.appspotmail.com"
+        message.to = email
+        message.subject = "Invitation for subscribing a NEW stream!"
+        message.body = mail_content
+        message.send()
 
         template_values = {
             'streams': streams,
@@ -39,3 +54,7 @@ class TrendStreams(webapp2.RequestHandler):
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/TrendingStreams.html')
         self.response.write(template.render(template_values))
+
+app = webapp2.WSGIApplication([
+                               ('/trend', TrendStreams),
+                               ], debug=True)
