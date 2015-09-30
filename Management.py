@@ -34,11 +34,9 @@ class MainPage(webapp2.RequestHandler):
             url_linktext = 'Logout'
             getUser = User.query(User.email == user.email())
 
-            # self.response.write(str(getUser.fetch(1)))
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
-                # self.response.write(currentUser)
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
 
@@ -118,5 +116,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/search', SearchStreams.SearchStreams),
                                ('/trend', TrendingStreams.TrendStreams),
                                ('/viewall', ViewAllStreams.ViewAllStreams),
-                               ('/trench', TrendingStreams.TrendStreams)
+                               ('/trend', TrendingStreams.TrendStreams)
                                ], debug=True)
