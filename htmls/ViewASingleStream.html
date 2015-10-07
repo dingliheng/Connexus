@@ -1,42 +1,58 @@
 {% extends '/htmls/base.html' %}
 {% block title %}ViewASingleStrem{% endblock %}
 {% block content %}
-<p>
+<style>
+    #drop_zone {
+    width: 50%;
+    border: 2px dashed #BBB;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    color: #BBB;
+}
+.removeAllImages {
+    cursor:pointer;
+}
+</style>
+<!--<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>-->
+<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="js/upload.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/dropzone.css">
+<script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
 
+<input type="filepicker" data-fp-apikey="AKrp4xSX0TxKNMqACshM2z"
+       onchange="alert(event.fpfile.url)">
 
-<!--<form action="" method="post">-->
-
-    <!--<div><img src="/img??stream_name={{stream_name}}"></img></div>-->
-
-    <!--<input type="submit" value="More pictures" name="morepicture">-->
-<!--</form>-->
-</p>
-
-<p>
+    &nbsp;&nbsp;<img src="{{cover_url}}" width="200" height="150"><br>
+    &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>
     {% for blob_key in stream_blob_key[::-1] %}
-             &nbsp;&nbsp;<img src="/view_photo/{{ blob_key }}">
+    <img src="/view_photo/{{ blob_key }} " width="350" height="300">
     {% endfor %}
-            &nbsp;&nbsp;<img src="{{cover_url}}" width="200" height="150" >
-    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td>&nbsp;&nbsp;Upload File: <input type="file" name="file"></td>
-            <td>&nbsp;&nbsp;<input type="text" value="Comments" name="new_comments"></td>
-        </tr>
-{#        <tr>#}
-{#            <td><img src="/img?stream_name={{stream_name}}"></td>#}
-{#        </tr>#}
-            <td>&nbsp;&nbsp;<input type="submit" value="Submit" name="submit"></td>
-        </tr>
-    </table>
-</form>
-</p>
-    <br>
+
+<form  action="{{upload_url}}" class="dropzone" method="POST" id="myDropzone" enctype="multipart/form-data"></form>
+<button type="submit" id="uploadBtn">Upload Files!</button>
+<div id="response"></div>
+    <!--<ul id="image-list">-->
+    <!--</ul>-->
+</div>
+
+
+
+<br>
 <p>
-    <form action="/subscribe?stream_name={{stream_name}}" method="post">
+<form action="/subscribe?stream_name={{stream_name}}" method="post">
     &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Subscribe" name="subscribebutton">
 </form>
 </p>
+<!-- Change /upload-target to your upload address -->
+
+
+</div>
+</form>
+
+
+
 
 {% endblock %}
 

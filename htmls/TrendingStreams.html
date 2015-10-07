@@ -21,7 +21,7 @@ div#footer {clear:both;text-align:center;}
     <div id="{{stream.name}}">
     <table>
         <tr>
-            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"></a></td>
+            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}"  width="200" height="150"></a></td>
         </tr>
         <tr>
             <td align="center">{{stream.num_of_views}} views in past hour</td>
@@ -29,13 +29,33 @@ div#footer {clear:both;text-align:center;}
     </table>
     </div>
     {% endfor %}
-<div id="menu">"�ӵ㶫��"</div>
+<div id="menu">
+    <form action="/trend" method="post">
+        <table>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="-1">No reports</td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="1">Every 5 minutes</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="12">Every 1 hour</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="288">Every day</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email trending report</td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="update" type="submit" value="Update rate"></td>
+            </tr>
+            </table>
+    </form>
+</div>
 <div id="footer"></div>
-
 </div>
 
 </body>
-
-   {% endfor %}
 </p>
 {% endblock %}

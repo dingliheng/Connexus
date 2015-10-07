@@ -105,15 +105,13 @@ class CreateNewStream(webapp2.RequestHandler):
             to_addrs = self.request.get("invitation_emails").split( )
             for email in to_addrs:
                 logging.debug("value of my var is %s", str(email))
-                if not mail.is_email_valid(email):
-                    # Return an error message...
-                    pass
-                message = mail.EmailMessage()
-                message.sender = user.email()
-                message.to = email
-                message.subject = "Invitation for subscribing a NEW stream!"
-                message.body = self.request.get("invitation_message")
-                message.send()
+                if mail.is_email_valid(email):
+                    message = mail.EmailMessage()
+                    message.sender = user.email()
+                    message.to = email
+                    message.subject = "Invitation for subscribing a NEW stream!"
+                    message.body = self.request.get("invitation_message")
+                    message.send()
 
 
             self.redirect('/')

@@ -1,4 +1,4 @@
 cron:
 - description: trend most poputer streams
   url: /trend
-  schedule: every 30 minutes
+  schedule: every 1 minutes
