@@ -1,48 +1,61 @@
 <!DOCTYPE HTML PUBLIC>
 {% autoescape true %}
+
 <head>
-   <title>{% block title %}{% endblock %}</title>
-   <style type="text/css">
-      div#above {background-color:#F0FC9C;height:100px;border-left: solid #000;border-right:solid #000;border-top:solid #000;}
-      div#middle {background-color:#C6DEE7;border: solid #000; font-family: "Comic Sans MS";background-image: url("http://previews.123rf.com/images/grandaded/grandaded1108/grandaded110800010/10379946-diagonal-green-background-made-with-a-wax-crayon.jpg")}
-      div#bottom {background-color:#F0FC9C;height:30px;border-left:solid #000 ;border-right:solid #000;border-bottom:solid #000;}
-   </style>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/ico">
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/js/jquery.min.js"></script>
 </head>
-<style>
-    body {
-    background-image: url("http://previews.123rf.com/images/daizuoxin/daizuoxin1502/daizuoxin150200022/36092130-Crayon-scribble-background-Stock-Photo.jpg");
-    background-color: #cccccc;
-}
-</style>
-<body bgcolor="#F1CAE2">
-   <div id="above">
-         <style type="text/css">
-            h1 {text-align: center;font-style:italic;color:#FFFFFF;text-shadow:2px 2px 5px black,-2px 2px 5px grey}
-         </style>
-         <h1>Connexus</h1>
+
+<body>
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/images/logo.png" class="img-responsive" alt=""></a>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
 </div>
-<div id="middle">
-      <style type="text/css">
-         h2 {text-align: left;
-         }
-      </style>
-      <h3>&nbsp;Connex.us</h3>
-      &nbsp;
-      <a href="/">Manage</a>
-      &nbsp;|&nbsp;
-      <a href="/create?=user_id={{user_id}}">Create</a>
-      &nbsp;|&nbsp;
-      <a href="/viewall">View</a>
-      &nbsp;|&nbsp;
-      <a href="/search">Search</a>
-      &nbsp;|&nbsp;
-      <a href="/trend">Trending</a>
-      &nbsp;|&nbsp;
-      <a href="">Social</a>
-      {% block content %}
-      {% endblock %}
+
+
+<div class="header-bottom">
+    <style>
+    </style>
+    <div class="container">
+        <div class="head-nav">
+            <span class="menu"> </span>
+            <ul class="cl-effect-15">
+                <li><a class="color6" href="/">Manage</a></li>
+                <li><a class="color5" href="/create?=user_id={{user_id}}">Create</a></li>
+                <li><a class="color8" href="/viewall">View</a></li>
+                <li><a class="color3" href="/search">Search</a></li>
+                <li><a class="color2" href="/trend">Trending</a></li>
+                <li><a class="color1" href="/">Social</a></li>
+                <div class="clearfix"> </div>
+            </ul>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
 </div>
-<div id="bottom"></div>
-Hi, {{user_id}}<a href="{{ url|safe }}">{{ url_linktext }}</a>
+
+<br>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+<br>
+
+<div class="footer">
+    <div class="container">
+        Hi, {{user_id}}<a href="{{ url|safe }}">{{ url_linktext }}</a>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
 </body>
 {% endautoescape %}

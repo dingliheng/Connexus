@@ -1,58 +1,99 @@
 {% extends '/htmls/base.html' %}
 {% block title %}Management{% endblock %}
 {% block content %}
-<h3>&nbsp;Streams I own</h3>
+
+    <head>
+        <style>
+            h2 {
+                font-family: cursive;
+                color: #888888;
+            }
+        </style>
+    </head>
+
+    <div>
+        <h2>&nbsp;Streams I own</h2>
+    </div>
+
+<div style="border-radius: 10px; border: groove darkorange">
 <form action="/" method="post">
-     <style type="text/css">
-         h2 {text-align: center;
-         }
-         td{text-align: center}
-      </style>
-<table>
-   <tr>
-       <td width="300" ><h2>Cover</h2></td>
-       <td width="300"><h2>Name</h2></td>
-       <td width="300"><h2>Last New Picture</h2></td>
-       <td width="300"><h2>Number of Pictures</h2></td>
-       <td width="300"><h3>Delete</h3></td>
-   </tr>
+<table width="100%">
+        <tr style="border-bottom: groove darkorange">
+        <td style="text-align: center;">Cover</td>
+        <td style="text-align: center; ">Name</td>
+        <td style="text-align: center; ">Last New Picture</td>
+        <td style="text-align: center; ">Number of Pictures</td>
+        <td style="text-align: center; ">Delete</td>
+    </tr>
    {% for stream in streams %}
+       <tr>
+       <td><br></td>
+       </tr>
    <tr>
-      <td width="300"><a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}" width="200" height="150"></a></td>
-      <td width="300"><h2><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></h2></a></td>
-      <td width="300"><h2>{{stream.date}}</h2></td>
-      <td width="300"><h2>{{stream.num_of_pics}}</h2></td>
-      <td><h2><input type="checkbox" name="{{stream.key.id()}}"></h2></td>
+      <td style="text-align: center;"><a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}" width="100" height="75"></a></td>
+      <td style="text-align: center;"><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+      <td style="text-align: center;">{{stream.date}}</td>
+      <td style="text-align: center;">{{stream.num_of_pics}}</td>
+      <td style="text-align: center;"><input type="checkbox" name="{{stream.key.id()}}"></td>
    </tr>
    {% endfor %}
+    {% if streams %}
+    <tr style="text-align: right">
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"><input type="submit" value="Delete" name="delete"></td>
+    </tr>
+    {% endif %}
      </table>
+</form>
+</div>
 
-<br/>
-&nbsp;&nbsp;<input type="submit" value="Delete Checked" name="delete">
-</form>
-<h3>&nbsp;Streams I subscribe to</h3>
+    <br>
+    <i class="line"> </i>
+    <br>
+
+    <div>
+        <h2>&nbsp;Streams I subscribe to</h2>
+    </div>
+
+    <div style="border-radius: 10px; border: groove darkorange">
 <form action="/" method="post">
-   <table>
-      <tr>
-          <td width="300" ><h2>Cover</h2></td>
-       <td width="300"><h2>Name</h2></td>
-       <td width="300"><h2>Last New Picture</h2></td>
-       <td width="300"><h2>Number of Pictures</h2></td>
-         <td width="150"><h2>Views</h2></td>
-         <td width="150"><h2>Unsubscribe</h2></td>
-      </tr>
-      {% for stream in subscribed_streams %}
-      <tr>
-          <td width="300"><img src="{{stream.cover}}" width="200" height="150"></td>
-         <td width="300"><h2><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></h2></td>
-         <td width="300"><h2>{{stream.date}}</h2></td>
-         <td width="300"><h2>{{stream.num_of_pics}}</h2></td>
-          <td width="300"><h2>{{stream.num_of_views}}</h2></td>
-         <td width="300"><input type="checkbox" name="{{stream.key.id()}}"></td>
-      </tr>
-      {% endfor %}
-   </table>
-   <br>
-   &nbsp;&nbsp;<input type="submit" value="Unsubscribe Checked Streams" name="unsubscribe">
+<table width="100%">
+    <tr style="border-bottom: groove darkorange">
+        <td style="text-align: center; width: 150px">Cover</td>
+        <td style="text-align: center; width: 150px">Name</td>
+        <td style="text-align: center; width: 150px">Last New Picture</td>
+        <td style="text-align: center; width: 150px">Number of Pictures</td>
+        <td style="text-align: center; width: 150px">Views</td>
+        <td style="text-align: center; width: 150px">Unsubscribe</td>
+    </tr>
+   {% for stream in subscribed_streams %}
+       <tr>
+       <td><br></td>
+       </tr>
+   <tr>
+      <td style="text-align: center;"><a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}" width="100" height="75"></a></td>
+      <td style="text-align: center;"><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
+      <td style="text-align: center;">{{stream.date}}</td>
+      <td style="text-align: center;">{{stream.num_of_pics}}</td>
+       <td style="text-align: center;">{{stream.num_of_views}}</td>
+      <td style="text-align: center;"><input type="checkbox" name="{{stream.key.id()}}"></td>
+   </tr>
+   {% endfor %}
+   {% if subscribed_streams %}
+    <tr style="text-align: right">
+        <td style="text-align: center; width: 150px"></td>
+        <td style="text-align: center; width: 150px"></td>
+        <td style="text-align: center; width: 150px"></td>
+        <td style="text-align: center; width: 150px"></td>
+        <td style="text-align: center; width: 150px"></td>
+        <td style="text-align: center; width: 150px"><input type="submit" value="Unsubscribe" name="unsubscribe"></td>
+    </tr>
+    {% endif %}
+     </table>
 </form>
+</div>
+
 {% endblock %}
