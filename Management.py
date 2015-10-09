@@ -19,6 +19,11 @@ from google.appengine.ext import ndb
 
 
 
+class Index(webapp2.RequestHandler):
+    def get(self):
+        template_values = {}
+        template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/index.html')
+        self.response.write(template.render(template_values))
 
 
 
@@ -68,6 +73,8 @@ class MainPage(webapp2.RequestHandler):
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/management.html')
         self.response.write(template.render(template_values))
+        # self.redirect('/index')
+
 
 
     def post(self):
@@ -111,10 +118,12 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/create', CreateNewStream),
                                ('/subscribe', ViewASingleStream.Subscribe),
                                ('/upload_photo', ViewASingleStream.PhotoUploadHandler),
+                               # ('/file-upload', ViewASingleStream.FileUploadHandler),
                                ('/view_photo/([^/]+)?', ViewASingleStream.ViewPhotoHandler),
                                ('/view', ViewASingleStream.ViewStream),
                                ('/search', SearchStreams.SearchStreams),
                                ('/trend', TrendingStreams.TrendStreams),
                                ('/viewall', ViewAllStreams.ViewAllStreams),
-                               ('/trend', TrendingStreams.TrendStreams)
+                               ('/trend', TrendingStreams.TrendStreams),
+                               ('/index', Index),
                                ], debug=True)

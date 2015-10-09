@@ -4,23 +4,27 @@
 <form action="/create" method="post">
    <table>
       <tr>
-         <td width="400";align="left">&nbsp;&nbsp;<input type="text" name="stream_name" value= "Name your stream"></td>
-         <td width="400";align="right"><input type="text" name="stream_tags" value="Tag your stream"></td>
-      </tr>
-      <tr>
          <td width="400";align="left">&nbsp;&nbsp;Name your stream</td>
          <td width="400";align="right">Tag your stream</td>
       </tr>
       <tr>
-         <td width="400";align="left">&nbsp;&nbsp;<input type="text"  name="invitation_emails" value="@"></td>
-         <td width="400";align="right"><input type="text" name="cover_image" value="URL"></td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;<input type="text" name="invitation_message" value="Message"></td>
-         <td width="400";align="right">URL to cover image(can be empty)</td>
+         <td width="400";align="left">&nbsp;&nbsp;<input name="stream_name" type="text" value= ""></td>
+         <td width="400";align="right"><input type="text" name="stream_tags" value=""></td>
       </tr>
       <tr>
          <td width="400";align="left">&nbsp;&nbsp;Add subscribers</td>
+         <td width="400";align="right">URL to cover image(can be empty)</td>
+      </tr>
+      <tr>
+         <td width="400";align="left">&nbsp;&nbsp;<input type="text"  name="invitation_emails" value=""></td>
+         <td width="400";align="right"><input type="text" name="cover_image" value=""></td>
+      </tr>
+      <tr>
+         <td width="400";align="left">&nbsp;&nbsp;Add Message</td>
+      </tr>
+      <tr>
+         <td width="400";align="left">&nbsp;&nbsp;
+         <textarea rows="4" cols="50"  name="invitation_message" value=""></textarea></td>
       </tr>
    </table>
    <br/>

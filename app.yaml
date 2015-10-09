@@ -4,22 +4,22 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
-#handlers:
-#- url: /favicon\.ico
-#  static_files: favicon.ico
-#  upload: favicon\.ico
-#
-#- url: .*
-#  script: main.app
-#
-#libraries:
-#- name: webapp2
-#  version: "2.5.2"
+
 
 
 handlers:
 - url: /trend
   script: TrendingStreams.app
+#  login: admin
+
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /js
+  static_dir: js
+
+- url: /css
+  static_dir: css
 
 - url: /.*
   script: Management.app
