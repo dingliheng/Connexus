@@ -19,16 +19,28 @@
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="js/upload.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/dropzone.css">
-<script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+<head>
+    <link type="text/css" rel="stylesheet" href="css/lightgallery.min.css" />
+</head>
 
-<input type="filepicker" data-fp-apikey="AKrp4xSX0TxKNMqACshM2z"
-       onchange="alert(event.fpfile.url)">
+
+    <!-- A jQuery plugin that adds cross-browser mouse wheel support. (Optional) -->
+    <script src="js/jquery.mousewheel.min.js"></script>
+
+    <!-- lightgallery plugins -->
+    <script src="js/lightgallery.min.js"></script>
+    <script src="js/lg-thumbnail.min.js"></script>
+    <script src="js/lg-fullscreen.min.js"></script>
 
     &nbsp;&nbsp;<img src="{{cover_url}}" width="200" height="150"><br>
     &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>
+<div id="lightgallery">
     {% for blob_key in stream_blob_key[::-1] %}
+      <a href="/view_photo/{{ blob_key }}">
     <img src="/view_photo/{{ blob_key }} " width="350" height="300">
+            </a>
     {% endfor %}
+</div>
 
 <form  action="{{upload_url}}" class="dropzone" method="POST" id="myDropzone" enctype="multipart/form-data"></form>
 <button type="submit" id="uploadBtn">Upload Files!</button>
@@ -51,8 +63,18 @@
 </div>
 </form>
 
-
-
-
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

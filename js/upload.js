@@ -86,6 +86,8 @@ $(function () {
 
 
     });
-
+    window.alert("aaa");
+$("#lightgallery").lightGallery();
+    window.alert("bbb");
 });
 
