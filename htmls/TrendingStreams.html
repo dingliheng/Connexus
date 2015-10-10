@@ -1,22 +1,18 @@
 {% extends '/htmls/base.html' %}
 {% block title %}TrendingStreams{% endblock %}
 {% block content %}
-<p>
-    <h2>Top 3 Trending Streams</h2>
+    <h2 style="font-family: cursive; color: #888888;">Top 3 Trending Streams</h2>
     <br/>
 
 <style type="text/css">
 div#container{width:800px}
 {%  for stream in streams %}
-div#{{stream.name}} {height:200px;width:200px;float:left;}
+div#{{stream.name}} {height:200px;width:250px;float:left;}
 {% endfor %}
 div#menu{height:200px;width:200px;float:left;}
 div#footer {clear:both;text-align:center;}
 </style>
 
-<body>
-
-<div id="container">
     {% for stream in streams %}
     <div id="{{stream.name}}">
     <table>
@@ -29,33 +25,52 @@ div#footer {clear:both;text-align:center;}
     </table>
     </div>
     {% endfor %}
-<div id="menu">
+    
     <form action="/trend" method="post">
-        <table>
+        <table style="font-size: large">
+            {% if value_checked == -1 %}
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="-1" checked>No reports</td>
+            </tr>
+            {% else %}
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="-1">No reports</td>
             </tr>
+            {% endif %}
+        {% if value_checked == 1 %}
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="1" checked>Every 5 minutes</td>
+            </tr>
+            {% else %}
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="1">Every 5 minutes</td>
             </tr>
-             <tr>
+            {% endif %}
+        {% if value_checked == 12 %}
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="12" checked>Every 1 hour</td>
+            </tr>
+            {% else %}
+            <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="12">Every 1 hour</td>
             </tr>
-             <tr>
+            {% endif %}
+        {% if value_checked == 288 %}
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="288" checked>Every day</td>
+            </tr>
+            {% else %}
+            <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;<input name="t" type="radio" value="288">Every day</td>
             </tr>
-             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email trending report</td>
+            {% endif %}
+            <tr>
+                <td><br></td>
             </tr>
              <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="update" type="submit" value="Update rate"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="submit" name="update" type="submit" value="Update rate"></td>
             </tr>
             </table>
     </form>
-</div>
-<div id="footer"></div>
-</div>
 
-</body>
-</p>
 {% endblock %}

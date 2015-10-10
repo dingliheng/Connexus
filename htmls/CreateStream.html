@@ -1,33 +1,34 @@
 {% extends '/htmls/base.html' %}
 {% block title %}CreateStream{% endblock %}
 {% block content %}
+    <div>
+    <style>
+        td{
+            font-family: cursive;
+        }
+    </style>
 <form action="/create" method="post">
-   <table>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;Name your stream</td>
-         <td width="400";align="right">Tag your stream</td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;<input name="stream_name" type="text" value= ""></td>
-         <td width="400";align="right"><input type="text" name="stream_tags" value=""></td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;Add subscribers</td>
-         <td width="400";align="right">URL to cover image(can be empty)</td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;<input type="text"  name="invitation_emails" value=""></td>
-         <td width="400";align="right"><input type="text" name="cover_image" value=""></td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;Add Message</td>
-      </tr>
-      <tr>
-         <td width="400";align="left">&nbsp;&nbsp;
-         <textarea rows="4" cols="50"  name="invitation_message" value=""></textarea></td>
-      </tr>
-   </table>
-   <br/>
-   &nbsp;&nbsp;<input type="submit" value="Create Stream">
+    <div class="form-group col-md-5">
+        <label>Name your stream</label>
+        <input type="text" id="stream_name" name="stream_name" class="form-control" placeholder="UT Austin">
+    </div>
+    <div class="form-group col-md-5">
+        <label>Tag your stream</label>
+        <textarea class="form-control" name="stream_tags" rows="2" placeholder="College"></textarea>
+    </div>
+    <div class="form-group col-md-5">
+        <label>Add subscribers</label>
+        <textarea class="form-control" name="invitation_emails" rows="2" placeholder="liheng.ding@utexas.edu"></textarea>
+    <br>
+        <textarea class="form-control" name="invitation_message" rows="3" placeholder="your message"></textarea>
+    </div>
+    <div class="form-group col-md-5">
+        <label>URL to cover image</label>
+        <input type="text" class="form-control" name ="cover_image" placeholder="http://....">
+    </div>
+    <div class="form-group col-md-10">
+        <input class="submit" type="submit" value="Create Stream">
+        </div>
 </form>
+    </div>
 {% endblock %}

@@ -61,6 +61,7 @@ class TrendStreams(webapp2.RequestHandler):
             # 'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+            'value_checked':TrendStreams.initial_num,
         }
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/TrendingStreams.html')
