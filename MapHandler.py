@@ -1,7 +1,10 @@
 import json
+from google.appengine.api.images import get_serving_url
 import webapp2
 from google.appengine.api import users
 import Connexus
+from CreateStream import Stream
+
 __author__ = 'yusun'
 class MapHandler(webapp2.RequestHandler):
     def get(self):
@@ -26,9 +29,13 @@ class MapHandler(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
+      stream_name = self.request.get('stream_name')
 
-      raw_data = { "count": 10785236,
-      "photos": [{"photo_id": 27932, "photo_title": "Atardecer en Embalse", "photo_url": "http://www.panoramio.com/photo/27932", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/27932.jpg", "longitude": -64.404945, "latitude": -32.202924, "width": 500, "height": 375, "upload_date": "25 June 2006", "owner_id": 4483, "owner_name": "Miguel Coranti", "owner_url": "http://www.panoramio.com/user/4483"}
+      stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
+
+
+      raw_data = { "count": 4,
+      "photos": [{"photo_id": 27932, "photo_title": "Atardecer en Embalse", "photo_url": "http://www.panoramio.com/photo/27932", "photo_file_url": get_serving_url(stream.blob_key[0]), "longitude": -64.404945, "latitude": -32.202924, "width": 500, "height": 375, "upload_date": "25 June 2006", "owner_id": 4483, "owner_name": "Miguel Coranti", "owner_url": "http://www.panoramio.com/user/4483"}
       ,
       {"photo_id": 522084, "photo_title": "In Memoriam Antoine de Saint Exupry", "photo_url": "http://www.panoramio.com/photo/522084", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/522084.jpg", "longitude": 17.470493, "latitude": 47.867077, "width": 500, "height": 350, "upload_date": "21 January 2007", "owner_id": 109117, "owner_name": "Busa Pter", "owner_url": "http://www.panoramio.com/user/109117"}
       ,
@@ -36,5 +43,8 @@ class MapHandler(webapp2.RequestHandler):
       ,
       {"photo_id": 7593894, "photo_title": "fff", "photo_url": "http://www.panoramio.com/photo/7593894", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/7593894.jpg", "longitude": 110.424957, "latitude": 24.781747, "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": "John Su", "owner_url": "http://www.panoramio.com/user/161470"}
       ]}
+      i = 1
+      # for image in stream.blob_key:
+      #     raw_data["photos"].append({"photo_id": i, "photo_title": "", "photo_url": get_serving_url(stream.blob_key[0]),"photo_file_url": get_serving_url(stream.blob_key[0]), "longitude": 100, "lattitude": 100 ,  "width": 500, "height": 375, "upload_date": "25 June 2006", "owner_id": 4483, "owner_name": "Miguel Coranti", "owner_url": "http://www.panoramio.com/user/4483"})
       data = json.dumps(raw_data)
       self.response.write(data)

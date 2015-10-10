@@ -53,8 +53,8 @@ speedTest.showMarkers = function() {
 
   var panel = $('markerlist');
   panel.innerHTML = '';
-  var numMarkers = $('nummarkers').value;
-
+  //var numMarkers = $('nummarkers').value;
+  var numMarkers = document.getElementById('count').innerHTML;
   for (var i = 0; i < numMarkers; i++) {
     var titleText = speedTest.pics[i].photo_title;
     if (titleText === '') {
