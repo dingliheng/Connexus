@@ -33,39 +33,34 @@
 <script src="js/lg-thumbnail.min.js"></script>
 <script src="js/lg-fullscreen.min.js"></script>
 
-<form action="/map" method="get">
-<input type="submit" value="Show Images In A Map">
-</form>
-<a href="/map?stream_name={{stream_name}}">Map</a>
-&nbsp;&nbsp;<img src="{{cover_url}}" width="200" height="150"><br>
-&nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>
-<div id="lightgallery">
-    {% for blob_key in stream_blob_key[::-1] %}
-    <a href="/view_photo/{{ blob_key }}">
-        <img src="/view_photo/{{ blob_key }} " width="350" height="300">
-    </a>
-    {% endfor %}
-</div>
 
-<form action="{{upload_url}}" class="dropzone" method="POST" id="myDropzone" enctype="multipart/form-data"></form>
-<button type="submit" id="uploadBtn">Upload Files!</button>
+    <a href="/map?stream_name={{stream_name}}">Map</a>
+    <img src="{{cover_url}}" width="200" height="150">
+    <p style="font-size: large">Streams tags:{{stream_tags}}</p>
+     <p>
+    <form action="/subscribe?stream_name={{stream_name}}" method="post">
+    <input class="submit" type="submit" value="Subscribe" name="subscribebutton"></form>
+    </p>
+    <i class="line"> </i>
+    <br>
+{#    &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>#}
+        <div id="lightgallery">
+            {% for blob_key in stream_blob_key[::-1] %}
+                <a href="/view_photo/{{ blob_key }}">
+                    <img src="/view_photo/{{ blob_key }} " width="200" height="150">
+                </a>
+            {% endfor %}
+        </div>
+
+    <div>
+<form  action="{{upload_url}}" class="dropzone" method="POST" id="myDropzone" enctype="multipart/form-data"></form>
+<input class="submit" type="submit" id="uploadBtn" value="Upload Files!">
 <div id="response"></div>
-<!--<ul id="image-list">-->
-<!--</ul>-->
-</div>
+    </div>
+    <!--<ul id="image-list">-->
+    <!--</ul>-->
 
 
-<br>
-<p>
-<form action="/subscribe?stream_name={{stream_name}}" method="post">
-    &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Subscribe" name="subscribebutton">
-</form>
-</p>
-<!-- Change /upload-target to your upload address -->
-
-
-</div>
-</form>
 
 {% endblock %}
 

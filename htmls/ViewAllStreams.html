@@ -1,37 +1,31 @@
 {% extends '/htmls/base.html' %}
 {% block title %}ViewAllStreams{% endblock %}
 {% block content %}
-    <p>
-     <h2>View All Streams</h2>
+     <h2 style="font-family: cursive; color: #888888;">View All Streams</h2>
 <style type="text/css">
-div#container{width:600px}
+
+
+
+
 {%  for stream in streams %}
-div#{{stream.name}} {height:200px;width:200px;float:left;}
+div#{{stream.name}} {height:200px;width:220px;float:left;}
 {% endfor %}
-div#footer {clear:both;text-align:center;}
+
 </style>
 
-<body>
-
-<div id="container">
+<div style="width:700px; height:400px; overflow:auto;">
     {% for stream in streams %}
     <div id="{{stream.name}}">
     <table>
         <tr>
-            <td>&nbsp;&nbsp;<a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}" width="200" height="150"></a></td>
+            <td><a href="/view?stream_name={{stream.name}}"><img src="{{stream.cover}}" width="200" height="150"></a></td>
         </tr>
         <tr>
             <td align="center"><a href="/view?stream_name={{stream.name}}">{{stream.name}}</a></td>
         </tr>
     </table>
     </div>
-
     {% endfor %}
-<div id="footer"></div>
-
 </div>
 
-</body>
-
-    </p>
 {% endblock %}

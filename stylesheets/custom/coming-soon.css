@@ -1,0 +1,24 @@
+/*--------------------------------------------------------------*/
+
+/*---------------Styles For Coming Soon page----------------------*/
+
+/*--------------------------------------------------------------*/
+body{
+	background-image: url('../../img/backgrounds/comingSoon.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+}
+h1, h2, h3, h4, h5, h6 {
+	
+    font-family: "Raleway";
+    font-weight: 300;
+    color: #eee;
+}
+.container{
+    margin-top: 10%;
+}
+.social{
+	font-size: 30px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
