@@ -7,6 +7,7 @@ import urllib
 import jinja2
 import webapp2
 import CreateStream
+import json
 from Connexus import User
 from google.appengine.ext import ndb
 from google.appengine.api import images
@@ -24,6 +25,7 @@ class SearchStreams(webapp2.RequestHandler):
         user = users.get_current_user()
         searched_streams = []
         keyword = ""
+        tags = ''
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -33,7 +35,11 @@ class SearchStreams(webapp2.RequestHandler):
 
                 currentUser = getUser.fetch(1)[0]
                 streams_key = currentUser.streams_searched
-                # self.response.write(currentUser)
+                streams = CreateStream.Stream.query().fetch(10)
+                for stream in streams:
+                    tags = tags + str(stream.name) + ' '
+                    for tag in stream.tags:
+                        tags = tags + str(tag) + ' '
                 for stream_key in streams_key:
                     if stream_key in currentUser.streams_owned:
                         pass
@@ -59,6 +65,7 @@ class SearchStreams(webapp2.RequestHandler):
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+            'tags':str(tags)
         }
 
         template = JINJA_ENVIRONMENT.get_template('/htmls/SearchStreams.html')
