@@ -1,0 +1,161 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MarkerClusterer v3 Speed Test Example</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+        font-size: 14px;
+      }
+      #panel {
+        float: left;
+        width: 300px;
+        height: 550px;
+      }
+      #map-container {
+        margin-left: 300px;
+      }
+      #map {
+        width: 100%;
+        height: 550px;
+      }
+      #markerlist {
+        height: 400px;
+        margin: 10px 5px 0 10px;
+        overflow: auto;
+      }
+      .title {
+        border-bottom: 1px solid #e0ecff;
+        overflow: hidden;
+        width: 256px;
+        cursor: pointer;
+        padding: 2px 0;
+        display: block;
+        color: #000;
+        text-decoration: none;
+      }
+      .title:visited {
+        color: #000;
+      }
+      .title:hover {
+        background: #e0ecff;
+      }
+      #timetaken {
+        color: #f00;
+      }
+      .info {
+        width: 200px;
+      }
+      .info img {
+        border: 0;
+      }
+      .info-body {
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        margin: 2px 0;
+        text-align: center;
+        overflow: hidden;
+      }
+      .info-img {
+        height: 220px;
+        width: 200px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <!--<script src="data/test.json"></script>-->
+    <script>
+      //      var data = { "count": 10785236,
+      //       "photos": [{"photo_id": 27932, "photo_title": "Atardecer en Embalse", "photo_url": "http://www.panoramio.com/photo/27932", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/27932.jpg", "longitude": -64.404945, "latitude": -32.202924, "width": 500, "height": 375, "upload_date": "25 June 2006", "owner_id": 4483, "owner_name": "Miguel Coranti", "owner_url": "http://www.panoramio.com/user/4483"}
+      //      ,
+      //      {"photo_id": 522084, "photo_title": "In Memoriam Antoine de Saint Exupéry", "photo_url": "http://www.panoramio.com/photo/522084", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/522084.jpg", "longitude": 17.470493, "latitude": 47.867077, "width": 500, "height": 350, "upload_date": "21 January 2007", "owner_id": 109117, "owner_name": "Busa Péter", "owner_url": "http://www.panoramio.com/user/109117"}
+      //      ,
+      //      {"photo_id": 1578881, "photo_title": "Rosina Lamberti,Sunset,Templestowe , Victoria, Australia", "photo_url": "http://www.panoramio.com/photo/1578881", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/1578881.jpg", "longitude": 145.141754, "latitude": -37.766372, "width": 500, "height": 474, "upload_date": "01 April 2007", "owner_id": 140796, "owner_name": "rosina lamberti", "owner_url": "http://www.panoramio.com/user/140796"}
+      //      ,
+      //      {"photo_id": 7593894, "photo_title": "桂林名胜百景——遇龙河", "photo_url": "http://www.panoramio.com/photo/7593894", "photo_file_url": "http://mw2.google.com/mw-panoramio/photos/medium/7593894.jpg", "longitude": 110.424957, "latitude": 24.781747, "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": "John Su", "owner_url": "http://www.panoramio.com/user/161470"}
+      //      ]};
+      var data = null;
+      $(function () {
+
+         jQuery.ajax({
+          url: window.location.href,
+          type: "POST",
+          dataType: 'json',
+          success: function (res) {
+            data = res;
+          },
+           error: function(serverResp) {            // on ajax failure
+          console.log('5xx http status code or unexpected response content');
+      }
+
+        });
+      });
+    </script>
+    <script>
+      var script = '<script type="text/javascript" src="js/markerclusterer';
+      if (document.location.search.indexOf('compiled') !== -1) {
+        script += '_compiled';
+      }
+      script += '.js"><' + '/script>';
+      document.write(script);
+    </script>
+    <script src="js/speed_test.js"></script>
+
+    <script>
+      google.maps.event.addDomListener(window, 'load', speedTest.init);
+    </script>
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-12846745-20']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="panel">
+      <h3>An example of MarkerClusterer v3</h3>
+      <p>
+        <a href="?compiled">Compiled</a> |
+        <a href="?">Standard</a> version of the script.
+      </p>
+
+      <div>
+        <input type="checkbox" checked="checked" id="usegmm"/>
+        <span>Use MarkerClusterer</span>
+      </div>
+
+      <div>
+        Markers:
+        <select id="nummarkers">
+          <option value="3">3</option>
+          <option value="50">50</option>
+          <option value="100" selected="selected">100</option>
+          <option value="500">500</option>
+          <option value="1000">1000</option>
+        </select>
+
+        <span>Time used: <span id="timetaken"></span> ms</span>
+      </div>
+
+      <strong>Marker List</strong>
+      <div id="markerlist">
+
+      </div>
+    </div>
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
+  </body>
+</html>

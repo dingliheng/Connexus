@@ -86,8 +86,10 @@ $(function () {
 
 
     });
-    window.alert("aaa");
+    $('#showMap').click(function () {
+       window.location.href = "/html/SearchStreams.html"
+    });
 $("#lightgallery").lightGallery();
-    window.alert("bbb");
+
 });
 
