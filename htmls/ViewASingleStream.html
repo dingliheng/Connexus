@@ -3,16 +3,17 @@
 {% block content %}
 <style>
     #drop_zone {
-    width: 50%;
-    border: 2px dashed #BBB;
-    border-radius: 5px;
-    padding: 25px;
-    text-align: center;
-    color: #BBB;
-}
-.removeAllImages {
-    cursor:pointer;
-}
+        width: 50%;
+        border: 2px dashed #BBB;
+        border-radius: 5px;
+        padding: 25px;
+        text-align: center;
+        color: #BBB;
+    }
+
+    .removeAllImages {
+        cursor: pointer;
+    }
 </style>
 <!--<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>-->
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
@@ -20,19 +21,24 @@
 <script src="js/upload.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/dropzone.css">
 <head>
-    <link type="text/css" rel="stylesheet" href="css/lightgallery.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/lightgallery.min.css"/>
+    <style type="text/css">
+        .string {font-family: Comic Sans MS}
+    </style>
 </head>
 
 
-    <!-- A jQuery plugin that adds cross-browser mouse wheel support. (Optional) -->
-    <script src="js/jquery.mousewheel.min.js"></script>
+<!-- A jQuery plugin that adds cross-browser mouse wheel support. (Optional) -->
+<script src="js/jquery.mousewheel.min.js"></script>
 
-    <!-- lightgallery plugins -->
-    <script src="js/lightgallery.min.js"></script>
-    <script src="js/lg-thumbnail.min.js"></script>
-    <script src="js/lg-fullscreen.min.js"></script>
+<!-- lightgallery plugins -->
+<script src="js/lightgallery.min.js"></script>
+<script src="js/lg-thumbnail.min.js"></script>
+<script src="js/lg-fullscreen.min.js"></script>
 
     <img src="{{cover_url}}" width="200" height="150">
+    <a class="string" href="/map?stream_name={{stream_name}}"><img src="img/world_map.png">Show the Stream in A Map!</a>
+
     <p style="font-size: large">Streams tags:{{stream_tags}}</p>
      <p>
     <form action="/subscribe?stream_name={{stream_name}}" method="post">
@@ -57,7 +63,7 @@
     <!--<ul id="image-list">-->
     <!--</ul>-->
 
-<!-- Change /upload-target to your upload address -->
+
 
 {% endblock %}
 

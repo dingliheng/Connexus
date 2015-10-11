@@ -149,3 +149,5 @@ class Subscribe(webapp2.RequestHandler):
         # User has not been logged in
         else:
              self.redirect(users.create_login_url(self.request.uri))
+
+

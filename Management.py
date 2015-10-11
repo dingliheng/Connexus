@@ -2,6 +2,7 @@ import cgi
 import logging
 from google.appengine.api.images import get_serving_url
 from Connexus import User
+import MapHandler
 import SearchStreams
 import TrendingStreams
 import Connexus
@@ -125,5 +126,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/trend', TrendingStreams.TrendStreams),
                                ('/viewall', ViewAllStreams.ViewAllStreams),
                                ('/trend', TrendingStreams.TrendStreams),
-                               ('/index', Index),
+                               # ('/index', Index),
+                               ('/map', MapHandler.MapHandler),
                                ], debug=True)

@@ -31,6 +31,12 @@ handlers:
 - url: /fonts
   static_dir: fonts
 
+
+- url: /data
+  static_dir: data
+
+
+
 - url: /.*
   script: Management.app
   login: required
