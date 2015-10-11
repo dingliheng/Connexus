@@ -18,9 +18,16 @@
             var tagstring =  "{{tags}}";
             var availableTags = new Array();
             var availableTags = tagstring.split(" ")
-            availableTags.sort();
+            var result = [], hash = {}
+            for (var i = 0, elem; (elem = availableTags[i]) != null; i++) {
+                if (!hash[elem]) {
+                    result.push(elem);
+                    hash[elem] = true;
+                }
+            }
+            result.sort();
             $( "#tags" ).autocomplete({
-                source: availableTags
+                source: result
             });
         });
     </script>

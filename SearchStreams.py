@@ -35,16 +35,16 @@ class SearchStreams(webapp2.RequestHandler):
 
                 currentUser = getUser.fetch(1)[0]
                 streams_key = currentUser.streams_searched
-                streams = CreateStream.Stream.query().fetch(10)
+                streams = CreateStream.Stream.query().fetch(50)
                 for stream in streams:
                     tags = tags + str(stream.name) + ' '
                     for tag in stream.tags:
                         tags = tags + str(tag) + ' '
-                for stream_key in streams_key:
-                    if stream_key in currentUser.streams_owned:
-                        pass
-                    else:
-                        currentUser.streams_searched.remove(stream_key)
+                # for stream_key in streams_key:
+                #     if stream_key in currentUser.streams_owned:
+                #         pass
+                #     else:
+                #         currentUser.streams_searched.remove(stream_key)
                 result_number = len(streams_key)
                 for stream_key in streams_key:
                     stream = stream_key.get()
@@ -117,7 +117,7 @@ class SearchStreams(webapp2.RequestHandler):
                                 break
                         currentUser.put()
                         currentUser.put()
-                        self.response.write(results)
+                        # self.response.write(results)
                         for doc in docs:
                             index.delete(doc.id)
                     except search.Error:
