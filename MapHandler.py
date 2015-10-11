@@ -34,7 +34,7 @@ class MapHandler(webapp2.RequestHandler):
       stream_name = self.request.get('stream_name')
 
       stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
-
+      user = users.get_current_user()
 
       raw_data = { "count": 0,
       "photos": [
@@ -43,9 +43,10 @@ class MapHandler(webapp2.RequestHandler):
       i = 1
 
       for image_url in stream.blob_key:
-        raw_data['photos'].append({"photo_id": i, "photo_title": "Your Picture", "photo_url": "http://www.panoramio.com/photo/7593894", "photo_file_url": get_serving_url(image_url), "longitude": random.randint(-100, 100), "latitude": random.randint(-100, 100), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": "John Su", "owner_url": "http://www.panoramio.com/user/161470"})
+        raw_data['photos'].append({"photo_id": i, "photo_title": "Your Picture", "photo_url": get_serving_url(image_url), "photo_file_url": get_serving_url(image_url), "longitude": random.randint(-100, 100), "latitude": random.randint(-100, 100), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": str(user.email()), "owner_url": "http://www.panoramio.com/user/161470"})
         raw_data['count'] = raw_data['count'] + 1
         i = i + 1
+
 
       data = json.dumps(raw_data)
       self.response.write(data)
