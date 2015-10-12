@@ -43,7 +43,7 @@ class MapHandler(webapp2.RequestHandler):
       i = 1
 
       for image_url in stream.blob_key:
-        raw_data['photos'].append({"photo_id": i, "photo_title": "Picture " + str(i), "photo_url": get_serving_url(image_url), "photo_file_url": get_serving_url(image_url), "longitude": random.randint(-100, 100), "latitude": random.randint(-100, 100), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": str(user.email()), "owner_url": " "})
+        raw_data['photos'].append({"photo_id": i, "photo_title": "Picture " + str(i), "photo_url": get_serving_url(image_url), "photo_file_url": get_serving_url(image_url), "longitude": random.randint(-150, 150), "latitude": random.randint(-85, 85), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": str(user.email()), "owner_url": " "})
         raw_data['count'] = raw_data['count'] + 1
         i = i + 1
 

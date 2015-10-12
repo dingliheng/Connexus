@@ -21,7 +21,7 @@ $(function () {
         document.getElementById("response").innerHTML = "Uploading . . .";
 
         var i = 0, len = dropzone.files.length;
-        window.alert(len);
+
         files = dropzone.files;
 
 
@@ -53,6 +53,9 @@ $(function () {
             }
         });
 
+       setTimeout(function() {
+            location.reload();
+        },500)
 
 
     });

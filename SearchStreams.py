@@ -41,11 +41,7 @@ class SearchStreams(webapp2.RequestHandler):
                     tags = tags + str(stream.name) + ' '
                     for tag in stream.tags:
                         tags = tags + str(tag) + ' '
-                # for stream_key in streams_key:
-                #     if stream_key in currentUser.streams_owned:
-                #         pass
-                #     else:
-                #         currentUser.streams_searched.remove(stream_key)
+
                 for stream_key in streams_key:
                     stream = stream_key.get()
                     if stream:
