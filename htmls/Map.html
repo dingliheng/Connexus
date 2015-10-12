@@ -80,6 +80,7 @@
           url: window.location.href,
           type: "POST",
           dataType: 'json',
+           async: false,
           success: function (res) {
             data = res;
             count = res["count"];
@@ -123,18 +124,18 @@
   <body>
     <span id="test">gg</span>
     <div id="panel">
-      <h3>An example of MarkerClusterer v3</h3>
-      <p>
+      <h3>Just Share More Nice Pictures Across The World!</h3>
+      <p hidden>
         <a href="?compiled">Compiled</a> |
         <a href="?">Standard</a> version of the script.
       </p>
 
-      <div>
+      <div hidden>
         <input type="checkbox" checked="checked" id="usegmm"/>
         <span>Use MarkerClusterer</span>
       </div>
 
-      <div>
+      <div hidden>
         Markers:
         <!--<span id="nummarkers" value="2">-->
         <select id="nummarkers">
