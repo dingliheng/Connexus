@@ -1,9 +1,10 @@
 import logging
 import os
+import random
 import jinja2
 from Connexus import User
 import Connexus
-from CreateStream import Stream
+from CreateStream import Stream, Picture
 import datetime
 
 __author__ = 'yusun'
@@ -57,7 +58,7 @@ class ViewStream(webapp2.RequestHandler):
             'stream_name': stream_name,
             # "stream.num_of_views":stream.num_of_views,
             "stream_tags": tags,
-            "stream_blob_key":stream.blob_key,
+            "stream_pictures":stream.pictures,
             'cover_url': cover_url,
             'user_id': user.user_id(),
             'url': url,
@@ -97,7 +98,10 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             for upload in self.get_uploads():
                 stream.num_of_pics = stream.num_of_pics+1
                 stream.date = datetime.datetime.now()
-                stream.blob_key.append(upload.key())
+                stream.pictures.append(Picture(blob_key = upload.key(),
+                                               date = datetime.datetime.now(),
+                                               longitude = random.uniform(-150,150),
+                                               latitude = random.uniform(-85,85)))
                 stream.put()
                 stream.put()
 

@@ -1,6 +1,7 @@
 import json
 import logging
 import random
+import datetime
 from google.appengine.api.images import get_serving_url
 import webapp2
 from google.appengine.api import users
@@ -31,6 +32,7 @@ class MapHandler(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
+
       stream_name = self.request.get('stream_name')
 
       stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
@@ -41,11 +43,15 @@ class MapHandler(webapp2.RequestHandler):
 
       ]}
       i = 1
+      start = int(self.request.get("start"))
+      end = int(self.request.get("end"))
 
-      for image_url in stream.blob_key:
-        raw_data['photos'].append({"photo_id": i, "photo_title": "Picture " + str(i), "photo_url": get_serving_url(image_url), "photo_file_url": get_serving_url(image_url), "longitude": random.randint(-150, 150), "latitude": random.randint(-85, 85), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": str(user.email()), "owner_url": " "})
-        raw_data['count'] = raw_data['count'] + 1
-        i = i + 1
+
+      for picture in stream.pictures:
+        if (picture.date - datetime.datetime.now()) >= datetime.timedelta(days=start) and (picture.date - datetime.datetime.now()) <= datetime.timedelta(days=end):
+            raw_data['photos'].append({"photo_id": i, "photo_title": "Picture " + str(i), "photo_url": get_serving_url(picture.blob_key), "photo_file_url": get_serving_url(picture.blob_key), "longitude": random.randint(-150, 150), "latitude": random.randint(-85, 85), "width": 500, "height": 375, "upload_date": "04 February 2008", "owner_id": 161470, "owner_name": str(user.email()), "owner_url": " "})
+            raw_data['count'] = raw_data['count'] + 1
+            i = i + 1
 
 
       data = json.dumps(raw_data)
