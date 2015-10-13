@@ -18,7 +18,7 @@ Dropzone.options.myDropzone = {
 $(function () {
     $("#uploadBtn").click(function () {
 
-        document.getElementById("response").innerHTML = "Uploading . . .";
+        //document.getElementById("response").innerHTML = "Uploading . . .";
 
         var i = 0, len = dropzone.files.length;
 
@@ -51,11 +51,12 @@ $(function () {
                     }
                 });
             }
+        //    setTimeout(function() {
+        //    location.reload();
+        //},500)
         });
 
-       setTimeout(function() {
-            location.reload();
-        },500)
+
 
 
     });
