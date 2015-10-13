@@ -48,9 +48,9 @@
     <br>
 {#    &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>#}
         <div id="lightgallery">
-            {% for blob_key in stream_blob_key[::-1] %}
-                <a href="/view_photo/{{ blob_key }}">
-                    <img src="/view_photo/{{ blob_key }} " width="200" height="150">
+            {% for picture in stream_pictures[::-1] %}
+                <a href="/view_photo/{{ picture.blob_key }}">
+                    <img src="/view_photo/{{ picture.blob_key }} " width="200" height="150">
                 </a>
             {% endfor %}
         </div>

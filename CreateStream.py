@@ -21,6 +21,11 @@ def user_key(user_id):
     We use guestbook_name as the key.
     """
     return ndb.Key('User', user_id)
+class Picture(ndb.Model):
+    blob_key = ndb.BlobKeyProperty()
+    date = ndb.DateTimeProperty(auto_now_add=True)
+    longitude = ndb.FloatProperty()
+    latitude = ndb.FloatProperty()
 
 class Stream(ndb.Model):
     """Models a Guestbook entry with an author, content, avatar, and date."""
@@ -28,7 +33,7 @@ class Stream(ndb.Model):
     author = ndb.StringProperty()
     tags = ndb.StringProperty(repeated=True)
     # picture = ndb.BlobProperty(repeated=True)
-    blob_key = ndb.BlobKeyProperty(repeated=True)
+    pictures = ndb.StructuredProperty(Picture, repeated=True)
     cover = ndb.StringProperty()
     num_of_pics = ndb.IntegerProperty()
     num_of_views = ndb.IntegerProperty()
