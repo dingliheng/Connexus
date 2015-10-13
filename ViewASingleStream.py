@@ -28,7 +28,7 @@ class ViewStream(webapp2.RequestHandler):
 
     def get(self):
         stream_name = self.request.get('stream_name')
-        self.response.write(stream_name + " ")
+        # self.response.write(stream_name + " ")
         stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
         # user = User.query(User.email == users.get_current_user().email)
         # Check if the user logs in
@@ -44,7 +44,7 @@ class ViewStream(webapp2.RequestHandler):
         stream.num_of_late_views = stream.num_of_late_views + 1
         Connexus.count_queue.append((stream.name, datetime.datetime.now()))
         stream.put()
-        self.response.write("stream has been viewed: " + str(stream.num_of_views))
+        # self.response.write("stream has been viewed: " + str(stream.num_of_views))
 
 
 
