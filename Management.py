@@ -75,7 +75,7 @@ class MainPage(webapp2.RequestHandler):
         template_values = {
             'streams': owned_streams,
             'subscribed_streams': subscribed_streams,
-            'user_id': currentUser.identity,
+            'user_id': currentUser.email,
             'url': url,
             'url_linktext': url_linktext,
             'tags':str(tags)

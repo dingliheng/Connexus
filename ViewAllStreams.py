@@ -34,7 +34,7 @@ class ViewAllStreams(webapp2.RequestHandler):
         template_values = {
             # 'stream_name': stream_name,
             'streams': streams,
-            'user_id': user.user_id(),
+            'user_id': user.email(),
             'url': url,
             'url_linktext': url_linktext,
             'tags':str(tags)

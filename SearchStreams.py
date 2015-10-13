@@ -61,6 +61,7 @@ class SearchStreams(webapp2.RequestHandler):
             "result_number":result_number,
             'keyword': keyword,
             'url': url,
+            'user_id': user.email(),
             'url_linktext': url_linktext,
             'tags':str(tags)
         }
@@ -99,37 +100,7 @@ class SearchStreams(webapp2.RequestHandler):
                 currentUser.put()
                 currentUser.put()
 
-            #     for stream in streams:
-            #         content = ""
-            #         for tag in stream.tags:
-            #             content = content+" "+tag
-            #         document = search.Document(
-            #             doc_id = str(stream.key.id()),
-            #             fields = [search.TextField(name = "streams_owned",value=stream.name+' '+content)]
-            #         )
-            #         documents.append(document)
-            #     self.response.write(documents)
-            #     if documents:
-            #         index = search.Index(name = 'streams_owned')
-            #         docs = index.put(documents)
-            #         try:
-            #             results = index.search(currentUser.keyword)
-            #             n = 0
-            #             for result in results:
-            #                 if n < 5:
-            #                     for stream in streams:
-            #                         if long(result.doc_id) == stream.key.id():
-            #                             currentUser.streams_searched.append(stream.key)
-            #                             n = n+1
-            #                 else:
-            #                     break
-            #             currentUser.put()
-            #             currentUser.put()
-            #             # self.response.write(results)
-            #             for doc in docs:
-            #                 index.delete(doc.id)
-            #         except search.Error:
-            #             logging.exception("Search failed")
+
             else:
                 currentUser = User(identity = user.user_id(), email = user.email())
                 currentUser.put()

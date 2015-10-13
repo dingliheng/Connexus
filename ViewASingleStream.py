@@ -60,7 +60,7 @@ class ViewStream(webapp2.RequestHandler):
             "stream_tags": tags,
             "stream_pictures":stream.pictures,
             'cover_url': cover_url,
-            'user_id': user.user_id(),
+            'user_id': user.email(),
             'url': url,
             'url_linktext': url_linktext,
             'upload_url': upload_url,

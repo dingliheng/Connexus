@@ -59,7 +59,7 @@ class CreateNewStream(webapp2.RequestHandler):
             url_linktext = 'Login'
 
         template_values = {
-            'user_id': user.user_id(),
+            'user_id': user.email(),
             'url': url,
             'url_linktext': url_linktext,
             'tags':str(tags)
