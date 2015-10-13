@@ -50,11 +50,13 @@
 {#    &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>#}
 
         <div id="lightgallery">
+        <div style="width: 700px;height: 190px;overflow: auto">
             {% for picture in stream_pictures[::-1] %}
                 <a href="/view_photo/{{ picture.blob_key }}">
                     <img style="margin-bottom: 20px" src="/view_photo/{{ picture.blob_key }} " width="200" height="150"><span style="margin-right: 20px;"></span>
                 </a>
             {% endfor %}
+        </div>
         </div>
 <br>
 
