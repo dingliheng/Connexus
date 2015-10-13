@@ -1,6 +1,7 @@
 {% extends '/htmls/base.html' %}
 {% block title %}ViewASingleStrem{% endblock %}
 {% block content %}
+
 <style>
     #drop_zone {
         width: 50%;
@@ -47,17 +48,29 @@
     <i class="line"> </i>
     <br>
 {#    &nbsp;&nbsp;Streams tags: {{stream_tags}} <br><br>#}
+
         <div id="lightgallery">
             {% for picture in stream_pictures[::-1] %}
                 <a href="/view_photo/{{ picture.blob_key }}">
-                    <img src="/view_photo/{{ picture.blob_key }} " width="200" height="150">
+                    <img style="margin-bottom: 20px" src="/view_photo/{{ picture.blob_key }} " width="200" height="150"><span style="margin-right: 20px;"></span>
                 </a>
             {% endfor %}
         </div>
+<br>
+
 
     <div>
 <form  action="{{upload_url}}" class="dropzone" method="POST" id="myDropzone" enctype="multipart/form-data"></form>
-<input class="submit" type="submit" id="uploadBtn" value="Upload Files!">
+        <table>
+            <tr>
+                <td>
+                    <input class="submit" type="submit" id="uploadBtn" value="Upload Files!">
+                </td>
+                <td>
+                    <span style="margin-left: 50px"></span><input type=button class="submit" value=Refresh onclick=history.go(-0)>
+                </td>
+            </tr>
+        </table>
 <div id="response"></div>
     </div>
     <!--<ul id="image-list">-->
