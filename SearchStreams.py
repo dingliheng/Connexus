@@ -27,6 +27,7 @@ class SearchStreams(webapp2.RequestHandler):
         searched_streams = []
         keyword = ""
         tags = ''
+        result_number = 0
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -59,7 +60,6 @@ class SearchStreams(webapp2.RequestHandler):
             'streams': searched_streams,
             "result_number":result_number,
             'keyword': keyword,
-            'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
             'tags':str(tags)
@@ -86,18 +86,6 @@ class SearchStreams(webapp2.RequestHandler):
                 currentUser.put()
                 streams = CreateStream.Stream.query().fetch(50)
                 pattern = re.compile('\S*'+keyword+'\S*',re.I)
-                # tokens = ','.join([keyword[:i] for i in xrange(1, len(keyword)+1)])
-                # tokens = tokens.split(',')
-                # for token in tokens[::-1]:
-                #     pattern = re.compile('\S*'+token+'\S*')
-                #     for stream in streams[:]:
-                #         content = stream.name
-                #         for tag in stream.tags:
-                #             content = content+' '+tag
-                #         match = pattern.search(content)
-                #         if match:
-                #             currentUser.streams_searched.append(stream.key)
-                #             streams.remove(stream)
                 for stream in streams:
                     content = stream.name
                     for tag in stream.tags:
@@ -111,7 +99,6 @@ class SearchStreams(webapp2.RequestHandler):
                 currentUser.put()
                 currentUser.put()
 
-                # <----------fuck-------------------------------------------------------------------------------->
             #     for stream in streams:
             #         content = ""
             #         for tag in stream.tags:
@@ -159,34 +146,7 @@ class SearchStreams(webapp2.RequestHandler):
         # }
         self.redirect('/search')
 
+app = webapp2.WSGIApplication([
+                               ('/search', SearchStreams),
+                               ], debug=True)
 
-
-
-
-
-
-
-
-
-
-
-        # self.response.write("dsfsfsdf")
-        #
-        # stream_name = self.request.get('stream_name')
-        # greeting = CreateStream.Greeting(parent=CreateStream.stream_key(stream_name))
-        #
-        # if users.get_current_user():
-        #     greeting.author = users.get_current_user().nickname()
-        #
-        # greeting.content = self.request.get('content')
-        #
-        # # Get image data
-        # avatar = self.request.get('img')
-        # # Transform the image
-        # avatar = images.resize(avatar, 32, 32)
-        # greeting.avatar = avatar
-        #
-        # greeting.put()
-        #
-        # self.redirect('/?' + urllib.urlencode(
-        #     {'stream_name': stream_name}))

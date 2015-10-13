@@ -12,9 +12,15 @@ from google.appengine.api import users
 class ViewAllStreams(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        tags = ''
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+            streams = CreateStream.Stream.query().fetch(50)
+            for stream in streams:
+                tags = tags + str(stream.name) + ' '
+                for tag in stream.tags:
+                    tags = tags + str(tag) + ' '
         
         else:
             url = users.create_login_url(self.request.uri)
@@ -31,6 +37,7 @@ class ViewAllStreams(webapp2.RequestHandler):
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+            'tags':str(tags)
         }
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/ViewAllStreams.html')

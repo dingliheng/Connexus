@@ -2,7 +2,7 @@ application: connexuselvis
 version: 1
 runtime: python27
 api_version: 1
-threadsafe: yes
+threadsafe: true
 
 
 
@@ -10,6 +10,9 @@ threadsafe: yes
 handlers:
 - url: /trend
   script: TrendingStreams.app
+
+- url: /search
+  script: SearchStreams.app
 #  login: admin
 
 - url: /stylesheets

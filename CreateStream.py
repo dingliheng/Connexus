@@ -5,7 +5,6 @@ import urllib
 import jinja2
 from google.appengine.api import urlfetch
 import webapp2
-
 from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import users
@@ -41,9 +40,15 @@ DEFAULT_STREAM_NAME = 'default_stream'
 class CreateNewStream(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        tags = ''
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+            streams = Stream.query().fetch(50)
+            for stream in streams:
+                tags = tags + str(stream.name) + ' '
+                for tag in stream.tags:
+                    tags = tags + str(tag) + ' '
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -52,6 +57,7 @@ class CreateNewStream(webapp2.RequestHandler):
             'user_id': user.user_id(),
             'url': url,
             'url_linktext': url_linktext,
+            'tags':str(tags)
 
         }
 

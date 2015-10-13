@@ -7,6 +7,7 @@ import SearchStreams
 import TrendingStreams
 import Connexus
 from CreateStream import CreateNewStream
+import CreateStream
 import ViewASingleStream
 import ViewAllStreams
 
@@ -35,6 +36,7 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
         owned_streams = []
         subscribed_streams = []
+        tags = ''
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -45,6 +47,12 @@ class MainPage(webapp2.RequestHandler):
                 currentUser = getUser.fetch(1)[0]
                 # Get the keys of streams
                 streams_key = currentUser.streams_owned
+
+                streams = CreateStream.Stream.query().fetch(50)
+                for stream in streams:
+                    tags = tags + str(stream.name) + ' '
+                    for tag in stream.tags:
+                        tags = tags + str(tag) + ' '
 
                 for stream_key in streams_key:
                     stream = stream_key.get()
@@ -70,6 +78,7 @@ class MainPage(webapp2.RequestHandler):
             'user_id': currentUser.identity,
             'url': url,
             'url_linktext': url_linktext,
+            'tags':str(tags)
         }
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/management.html')
@@ -87,10 +96,15 @@ class MainPage(webapp2.RequestHandler):
             if getUser.fetch(1):
 
                 currentUser = getUser.fetch(1)[0]
-
-                streams_key = currentUser.streams_owned
+                # currentUser.streams_owned = []
+                # currentUser.put()
+                streams_owned_key = currentUser.streams_owned
+                streams_key = []
+                streams = CreateStream.Stream.query().fetch(50)
+                for stream in streams:
+                    streams_key.append(stream.key)
                 if self.request.get("delete"):
-                    for stream_key in streams_key[:]:
+                    for stream_key in streams_owned_key[:]:
                         stream = stream_key.get()
                         if self.request.get(str(stream.key.id())):
                                 currentUser.streams_owned.remove(stream_key)
@@ -99,10 +113,9 @@ class MainPage(webapp2.RequestHandler):
                                         currentUser.streams_searched.remove(stream_key)
                                 stream_key.delete()
                 if self.request.get("unsubscribe"):
-                    for stream_key in streams_key[:]:
-                        stream = stream_key.get()
+                    for stream in streams[:]:
                         if self.request.get(str(stream.key.id())):
-                                currentUser.streams_subscribed.remove(stream_key)
+                                currentUser.streams_subscribed.remove(stream.key)
                 currentUser.put()
                 currentUser.put()
 
@@ -125,7 +138,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/search', SearchStreams.SearchStreams),
                                ('/trend', TrendingStreams.TrendStreams),
                                ('/viewall', ViewAllStreams.ViewAllStreams),
-                               ('/trend', TrendingStreams.TrendStreams),
+                               # ('/trend', TrendingStreams.TrendStreams),
                                # ('/index', Index),
                                ('/map', MapHandler.MapHandler),
                                ], debug=True)

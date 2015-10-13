@@ -19,9 +19,15 @@ class TrendStreams(webapp2.RequestHandler):
     initial_num = -1
     def get(self):
         user = users.get_current_user()
+        tags = ''
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+            streams = CreateStream.Stream.query().fetch(50)
+            for stream in streams:
+                tags = tags + str(stream.name) + ' '
+                for tag in stream.tags:
+                    tags = tags + str(tag) + ' '
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -62,6 +68,7 @@ class TrendStreams(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'value_checked':TrendStreams.initial_num,
+            'tags':str(tags)
         }
 
         template = Connexus.JINJA_ENVIRONMENT.get_template('/htmls/TrendingStreams.html')

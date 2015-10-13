@@ -1,6 +1,5 @@
 <!DOCTYPE HTML PUBLIC>
 {% autoescape true %}
-
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" href="/images/favicon.ico" type="image/ico">
@@ -8,18 +7,24 @@
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" media="all">
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
     <script src="/js/jquery.min.js"></script>
-</head>
 
 <body>
 <div class="header">
-    <div class="container">
-        <div class="logo">
-            <a href="/"><img src="/images/logo.png" class="img-responsive" alt=""></a>
-        </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <img src="/images/logo.png" class="img-responsive" alt="">
+        </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <br><br>
+                  <form action="/search" method="post">
+                  <input style="" id="tags" type="text" name="keywords" placeholder="key word of the stream"><input style="vertical-align:middle;" type="image" src="/images/search.png"><span style="margin-right: 50px"></span>
+                      </form>
+              </li>
+            </ul>
+          </div>
         <div class="clearfix"> </div>
-    </div>
 </div>
-
 
 <div class="header-bottom">
     <style>
@@ -33,7 +38,6 @@
                 <li><a class="color8" href="/viewall">View</a></li>
                 <li><a class="color3" href="/search">Search</a></li>
                 <li><a class="color2" href="/trend">Trending</a></li>
-                <li><a class="color1" href="/">Social</a></li>
                 <div class="clearfix"> </div>
             </ul>
         </div>
@@ -44,6 +48,34 @@
 <br>
 
 <div class="container">
+ <style>
+  .ui-autocomplete {
+    max-height: 550px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  </style>
+
+    <link rel="stylesheet" href="/stylesheets/jquery-ui.css">
+    <script src="/js/jquery/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            var tagstring =  "{{tags}}";
+            var availableTags = new Array();
+            var availableTags = tagstring.split(" ")
+            var result = [], hash = {}
+            for (var i = 0, elem; (elem = availableTags[i]) != null; i++) {
+                if (!hash[elem]) {
+                    result.push(elem);
+                    hash[elem] = true;
+                }
+            }
+            result.sort();
+            $( "#tags" ).autocomplete({
+                source: result
+            });
+        });
+    </script>
     {% block content %}
     {% endblock %}
 </div>

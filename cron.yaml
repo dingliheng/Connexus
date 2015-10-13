@@ -2,3 +2,7 @@ cron:
 - description: trend most poputer streams
   url: /trend
   schedule: every 1 minutes
+
+- description: update the search index
+  url: /search
+  schedule: every 1 hours
