@@ -32,7 +32,7 @@ speedTest.init = function() {
   google.maps.event.addDomListener(useGmm, 'click', speedTest.change);
   
   var numMarkers = document.getElementById('nummarkers');
-  google.maps.event.addDomListener(numMarkers, 'change', speedTest.change);
+  google.maps.event.addDomListener(numMarkers, 'click', speedTest.change);
 
   speedTest.infoWindow = new google.maps.InfoWindow();
 
@@ -53,8 +53,8 @@ speedTest.showMarkers = function() {
 
   var panel = $('markerlist');
   panel.innerHTML = '';
-  //var numMarkers = $('nummarkers').value;
-  var numMarkers = document.getElementById('count').innerHTML;
+  var numMarkers = $('nummarkers').value;
+
   for (var i = 0; i < numMarkers; i++) {
     var titleText = speedTest.pics[i].photo_title;
     if (titleText === '') {
@@ -122,7 +122,7 @@ speedTest.markerClickFunction = function(pic, latlng) {
 };
 
 speedTest.clear = function() {
-  $('timetaken').innerHTML = 'cleaning...';
+
   for (var i = 0, marker; marker = speedTest.markers[i]; i++) {
     marker.setMap(null);
   }
@@ -134,7 +134,7 @@ speedTest.change = function() {
 };
 
 speedTest.time = function() {
-  $('timetaken').innerHTML = 'timing...';
+
   var start = new Date();
   if ($('usegmm').checked) {
     speedTest.markerClusterer = new MarkerClusterer(speedTest.map, speedTest.markers);
@@ -145,5 +145,5 @@ speedTest.time = function() {
   }
 
   var end = new Date();
-  $('timetaken').innerHTML = end - start;
+
 };

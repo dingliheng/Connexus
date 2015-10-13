@@ -82,8 +82,7 @@
     <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
 
-    <!--<script src="data/test.json"></script>-->
-    We have <span id="count">3</span> uploaded pictures during this period.
+    <!--We have <span id="count">3</span> uploaded pictures during this period.-->
     <script>
         var data = null;
         var count = 0;
@@ -98,6 +97,7 @@
                 success: function (res) {
                     data = res;
                     count = res["count"];
+                    jQuery("#nummarkers").val(count);
                     document.getElementById('count').innerHTML = count;
 
                 },
@@ -137,6 +137,8 @@
                         success: function (res) {
                             data = res;
                             count = res["count"];
+                            jQuery("#nummarkers").val(count);
+                            jQuery("#nummarkers").click();
                             document.getElementById('count').innerHTML = count;
 
                         },
@@ -204,20 +206,11 @@
         <input type="checkbox" checked="checked" id="usegmm"/>
         <span>Use MarkerClusterer</span>
     </div>
+    <button hidden id="nummarkers" value="3"></button>
+    We have <span id="count"></span> uploaded pictures during this period.
 
-    <div hidden>
-        Markers:
-        <!--<span id="nummarkers" value="2">-->
-        <select id="nummarkers">
-            <option value="3">3</option>
-            <option value="50">50</option>
-            <option value="100" selected="selected">100</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-        </select>
 
-        <span>Time used: <span id="timetaken"></span> ms</span>
-    </div>
+
 
     <strong>Marker List</strong>
 
