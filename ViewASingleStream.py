@@ -32,16 +32,16 @@ class ViewStream(webapp2.RequestHandler):
         stream = Stream.query(Stream.name == stream_name).fetch(1)[0]
         # user = User.query(User.email == users.get_current_user().email)
         # Check if the user logs in
-        all_tags = ''
+        streams_tags = ''
         user = users.get_current_user()
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
-            streams = CreateStream.Stream.query().fetch(50)
-            for stream in streams:
-                all_tags = all_tags + str(stream.name) + ' '
-                for tag in stream.tags:
-                    all_tags = all_tags + str(tag) + ' '
+            some_streams = CreateStream.Stream.query().fetch(50)
+            for one_stream in some_streams:
+                streams_tags = streams_tags + str(one_stream.name) + ' '
+                for tag in one_stream.tags:
+                    streams_tags = streams_tags + str(tag) + ' '
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -70,7 +70,7 @@ class ViewStream(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'upload_url': upload_url,
-            'tags':str(all_tags)
+            'tags':str(streams_tags)
         }
 
         template = JINJA_ENVIRONMENT.get_template('/htmls/ViewASingleStream.html')
