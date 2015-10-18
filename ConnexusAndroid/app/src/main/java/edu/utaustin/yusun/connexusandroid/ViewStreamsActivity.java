@@ -25,12 +25,12 @@ public class ViewStreamsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_streams);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, numbers);
 
         gridView.setAdapter(adapter);
-
+        gridView.setExpanded(true);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
