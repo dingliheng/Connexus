@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
+        findViewById(R.id.view_all_button).setOnClickListener(this);
 
         // Large sign-in
         ((SignInButton) findViewById(R.id.sign_in_button)).setSize(SignInButton.SIZE_WIDE);
@@ -325,7 +326,15 @@ public class LoginActivity extends AppCompatActivity implements
             case R.id.disconnect_button:
                 onDisconnectClicked();
                 break;
+            case R.id.view_all_button:
+                onViewAllClicked();
+                break;
         }
+    }
+
+    private void onViewAllClicked() {
+        Intent k = new Intent(LoginActivity.this, ViewStreamsActivity.class);
+        startActivity(k);
     }
     // [END on_click]
 
