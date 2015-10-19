@@ -27,6 +27,11 @@
             android:label="@string/title_activity_view_streams"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".ViewAStreamActivity"
+            android:label="@string/title_activity_view_astream"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

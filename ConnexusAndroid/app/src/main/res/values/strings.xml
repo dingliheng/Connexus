@@ -27,4 +27,6 @@
     <!-- Rationale for asking for Contacts -->
     <string name="contacts_permission_rationale">Contacts access is needed in order to retrieve your email address.</string>
     <string name="title_activity_view_streams">ViewStreamsActivity</string>
+    <string name="title_activity_view_astream">ViewAStreamActivity</string>
+    <string name="stream_name">Stream Name</string>
 </resources>

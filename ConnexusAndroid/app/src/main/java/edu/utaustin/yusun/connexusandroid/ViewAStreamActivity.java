@@ -1,6 +1,5 @@
 package edu.utaustin.yusun.connexusandroid;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,11 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewStreamsActivity extends AppCompatActivity {
+public class ViewAStreamActivity extends AppCompatActivity {
     static final String[] numbers = new String[] {
             "A", "B", "C", "D", "E",
             "F", "G", "H", "I", "J",
@@ -23,10 +21,11 @@ public class ViewStreamsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_streams);
+        setContentView(R.layout.activity_view_astream);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
+
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, numbers);
 
@@ -35,8 +34,8 @@ public class ViewStreamsActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Intent k = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
-                startActivity(k);
+                Toast.makeText(getApplicationContext(),
+                        ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
