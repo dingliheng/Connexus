@@ -13,7 +13,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewStreamsActivity extends AppCompatActivity {
+public class ViewStreamsActivity extends AppCompatActivity implements
+        View.OnClickListener {
     static final String[] numbers = new String[] {
             "A", "B", "C", "D", "E",
             "F", "G", "H", "I", "J",
@@ -39,6 +40,10 @@ public class ViewStreamsActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
+        // Set up button click listeners
+        findViewById(R.id.search).setOnClickListener(this);
+        findViewById(R.id.nearby).setOnClickListener(this);
+        findViewById(R.id.view_subscribed_streams).setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,38 @@ public class ViewStreamsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    // [START on_click]
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.nearby:
+                onNearbyClicked();
+                break;
+            case R.id.search:
+                onSearchClicked();
+                break;
+            case R.id.view_subscribed_streams:
+                onViewSubscribedClicked();
+                break;
+
+        }
+    }
+
+    //When click on the nearby button
+    private void onNearbyClicked() {
+        
+    }
+
+    //When click on the search button
+    private void onSearchClicked() {
+
+    }
+
+    //When click on the view subscibed stream button
+    private  void onViewSubscribedClicked() {
+
     }
 
 }

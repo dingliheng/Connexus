@@ -56,10 +56,10 @@
                 android:layout_weight="0.1"
                 />
             <Button
+                android:id="@+id/nearby"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Nearby"
-                android:onClick="sendMessage"
                 android:layout_weight="0.3"
                 android:layout_alignParentRight="true"/>
         </LinearLayout>
