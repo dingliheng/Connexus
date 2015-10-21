@@ -75,7 +75,11 @@
             android:layout_margin="10dp"
             android:text="Upload An Image"
             android:textColor="@android:color/white"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#F7F5ED"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -88,7 +92,11 @@
             android:text="Streams"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#F7F5ED"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
             android:textSize="25dp" />
 
 

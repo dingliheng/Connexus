@@ -32,6 +32,11 @@
             android:label="@string/title_activity_view_astream"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".ViewNearbyActivity"
+            android:label="@string/title_activity_view_nearby"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

@@ -29,4 +29,5 @@
     <string name="title_activity_view_streams">ViewStreamsActivity</string>
     <string name="title_activity_view_astream">ViewAStreamActivity</string>
     <string name="stream_name">Stream Name</string>
+    <string name="title_activity_view_nearby">ViewNearbyActivity</string>
 </resources>
