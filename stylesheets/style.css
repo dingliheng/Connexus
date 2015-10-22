@@ -168,7 +168,7 @@ body a{
 ul a:hover,
 ul a:focus {
 	outline: none;
-	 color:#fff;
+    color:#fff;
 	text-decoration: none;
 }
 /* Effect 15: scale down, reveal */
@@ -181,7 +181,7 @@ ul a:focus {
 .cl-effect-15 a::before {
 	color: #727272;
 	content: attr(data-hover);
-	position: absolute;
+    position:absolute;
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	-moz-transition: -moz-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
@@ -193,6 +193,30 @@ ul a:focus {
 	transform: scale(0.9);
 	opacity: 0;
 }
+
+/*.cl-effect-15 span {*/
+	/*color:#000000;*/
+	/*font-weight: 700;*/
+	/*text-shadow: none;*/
+/*}*/
+
+/*.cl-effect-15 span::before {*/
+	/*color: #000000;*/
+	/*content: attr(data-hover);*/
+    /*position:absolute;*/
+	/*-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;*/
+	/*-moz-transition: -moz-transform 0.3s, opacity 0.3s;*/
+	/*transition: transform 0.3s, opacity 0.3s;*/
+/*}*/
+
+/*.cl-effect-15 span:focus::before {*/
+	/*-webkit-transform: scale(0.9);*/
+	/*-moz-transform: scale(0.9);*/
+	/*transform: scale(0.9);*/
+	/*opacity: 0;*/
+/*}*/
+
+
 a.color1 {
   border-bottom: 5px solid #377aea;
   font-weight: 700px;

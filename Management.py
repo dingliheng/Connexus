@@ -10,6 +10,7 @@ from CreateStream import CreateNewStream
 import CreateStream
 import ViewASingleStream
 import ViewAllStreams
+from Android_ViewStreams import Android_ViewAllStreams
 
 __author__ = 'yusun'
 import os
@@ -141,4 +142,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                # ('/trend', TrendingStreams.TrendStreams),
                                # ('/index', Index),
                                ('/map', MapHandler.MapHandler),
+                               # ('/android_viewall',Android_ViewAllStreams)
                                ], debug=True)
