@@ -34,6 +34,7 @@ public class ViewStreamsActivity extends AppCompatActivity {
     Context context = this;
     private String TAG  = "Display Streams";
     final String ViewAllStreams_url = "http://connexus-1104.appspot.com/android_viewall";
+    public final static String EXTRA_MESSAGE = "name";
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -62,22 +63,27 @@ public class ViewStreamsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 final ArrayList<String> cover_URLs = new ArrayList<String>();
+                final ArrayList<String> names = new ArrayList<String>();
                 try {
-                    System.out.println(new String(responseBody));
                     JSONObject jObject = new JSONObject(new String(responseBody));
                     JSONArray cover_URLs_json = jObject.getJSONArray("cover_urls");
+                    JSONArray names_json = jObject.getJSONArray("names");
 
                     for (int i = 0; i < cover_URLs_json.length(); i++) {
                         cover_URLs.add(cover_URLs_json.getString(i));
+                        names.add(names_json.getString(i));
                         System.out.println(cover_URLs_json.getString(i));
                     }
                     ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
                     gridView.setAdapter(new ImageAdapter(context, cover_URLs));
                     gridView.setExpanded(true);
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                        @Override
                                                         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                                                            Toast.makeText(getApplicationContext(),
-                                                                    ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+                                                            System.out.println(names.get(position));
+                                                            Intent viewastream = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
+                                                            viewastream.putExtra(EXTRA_MESSAGE,names.get(position).toString());
+                                                            startActivity(viewastream);
                                                         }
                                                     }
                     );

@@ -1,5 +1,7 @@
 package edu.utaustin.yusun.connexusandroid;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,33 +14,54 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewAStreamActivity extends AppCompatActivity {
-    static final String[] numbers = new String[] {
-            "A", "B", "C", "D", "E",
-            "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O",
-            "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z"};
+    Context context = this;
+    private String TAG  = "Display Pictures";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_astream);
+
+        Intent intent = getIntent();
+        String sream_name = intent.getStringExtra(ViewStreamsActivity.EXTRA_MESSAGE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, numbers);
+        final String view_astream_url = "http://connexus-1104.appspot.com/android_viewsingle?stream_name="+sream_name;
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient.get(view_astream_url, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        final ArrayList<String> picture_URLs = new ArrayList<String>();
+                        try {
+                            JSONObject jObject = new JSONObject(new String(responseBody));
+                            JSONArray picture_URLs_json = jObject.getJSONArray("picture_urls");
 
-        gridView.setAdapter(adapter);
-        gridView.setExpanded(true);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                            for (int i = 0; i < picture_URLs_json.length(); i++) {
+                                picture_URLs.add(picture_URLs_json.getString(i));
+                                System.out.println(picture_URLs_json.getString(i));
+                            }
+                            ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView2);
+                            gridView.setAdapter(new ImageAdapter(context, picture_URLs));
+                            gridView.setExpanded(true);
+                            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+//                                    Toast.makeText(getApplicationContext(),
+//                                            ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (JSONException j) {
+                            System.out.println("JSON Error");
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    }
+                });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

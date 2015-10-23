@@ -6,11 +6,14 @@ import json
 
 class Android_ViewAllStreams(webapp2.RequestHandler):
     def get(self):
-        streams = CreateStream.Stream.query().fetch(50)
+        streams = CreateStream.Stream.query().fetch(16)
+        streams = sorted(streams, key=lambda k: k.date,reverse = True)
         streams_URLs = []
+        streams_Names = []
         for stream in streams:
             streams_URLs.append(stream.cover)
-        dictPassed = {'cover_urls':streams_URLs}
+            streams_Names.append(stream.name)
+        dictPassed = {'cover_urls':streams_URLs,"names":streams_Names}
         jsonObj = json.dumps(dictPassed,sort_keys=True,indent=4, separators=(',', ': '))
         self.response.write(jsonObj)
 

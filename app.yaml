@@ -11,6 +11,9 @@ handlers:
 - url: /android_viewall
   script: Android_ViewStreams.app
 
+- url: /android_viewsingle
+  script: Android_ViewAStream.app
+
 - url: /trend
   script: TrendingStreams.app
 
