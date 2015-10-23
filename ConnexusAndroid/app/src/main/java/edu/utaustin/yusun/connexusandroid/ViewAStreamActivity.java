@@ -13,6 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
+import java.util.ArrayList;
+
 public class ViewAStreamActivity extends AppCompatActivity {
     Context context = this;
     private String TAG  = "Display Pictures";
