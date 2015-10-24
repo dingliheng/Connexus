@@ -1,14 +1,25 @@
 package edu.utaustin.yusun.connexusandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 
+
+/**
+ * Created by yusun on 15/10/18.
+ */
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener{
+    private Camera mCamera;
+    private CameraPreview mPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +33,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.use_picture_button).setOnClickListener(this);
         findViewById(R.id.view_all_button).setOnClickListener(this);
 
+        //Create an instance of Camera
+        mCamera = getCameraInstance();
+        //Create out Preview view and set it as the content of the activity
+        mPreview = new CameraPreview(this, mCamera);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        preview.addView(mPreview);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -34,7 +52,15 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    public static  Camera getCameraInstance() {
+        Camera c = null;
+        try {
+            c = Camera.open();
+        } catch (Exception e) {
 
+        }
+        return c;
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
