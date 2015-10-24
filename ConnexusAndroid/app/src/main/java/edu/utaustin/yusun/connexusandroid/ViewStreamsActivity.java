@@ -52,9 +52,13 @@ public class ViewStreamsActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.drawer_home, "Home");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.drawer_view_all, "View All Streams");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.drawer_logout, "Log Out");
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_item, drawerItem);
+        mDrawerList.setAdapter(adapter);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -163,7 +167,7 @@ public class ViewStreamsActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(" ");
     }
 
 }

@@ -36,7 +36,7 @@
             android:layout_height="match_parent">
             <edu.utaustin.yusun.connexusandroid.ExpandableHeightGridView
                 android:id="@+id/gridView"
-                android:numColumns="4"
+                android:numColumns="3"
                 android:gravity="center"
                 android:columnWidth="50dp"
                 android:stretchMode="columnWidth"
