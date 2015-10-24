@@ -1,5 +1,4 @@
 package edu.utaustin.yusun.connexusandroid;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import cz.msebera.android.httpclient.Header;
-
 import java.util.ArrayList;
 
-public class ViewAStreamActivity extends AppCompatActivity {
+public class ViewAStreamActivity extends AppCompatActivity implements View.OnClickListener {
     Context context = this;
     private String TAG  = "Display Pictures";
 
@@ -39,6 +34,8 @@ public class ViewAStreamActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        findViewById(R.id.upload_button).setOnClickListener(this);
+        findViewById(R.id.view_streams_button).setOnClickListener(this);
 
         TextView streamName = (TextView) findViewById(R.id.textView2);
         streamName.setText(sream_name);
@@ -93,6 +90,21 @@ public class ViewAStreamActivity extends AppCompatActivity {
     public void returnTostreams(View view) {
         Intent returnTostreams = new Intent(ViewAStreamActivity.this,ViewStreamsActivity.class);
         startActivity(returnTostreams);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.upload_button:
+                Intent k1 = new Intent(ViewAStreamActivity.this, UploadActivity.class);
+                startActivity(k1);
+                break;
+            case R.id.view_streams_button:
+                Intent k2 = new Intent(ViewAStreamActivity.this, ViewStreamsActivity.class);
+                startActivity(k2);
+                break;
+
+        }
     }
 
 }

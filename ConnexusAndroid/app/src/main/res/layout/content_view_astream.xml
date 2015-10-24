@@ -68,7 +68,7 @@
 
 
         <Button
-            android:id="@+id/upload"
+            android:id="@+id/upload_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -85,7 +85,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/return_to_streams"
+            android:id="@+id/view_streams_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
