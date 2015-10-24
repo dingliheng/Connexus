@@ -32,7 +32,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_view_astream);
 
         Intent intent = getIntent();
-        String sream_name = intent.getStringExtra(ViewStreamsActivity.EXTRA_MESSAGE);
+        String sream_name = intent.getStringExtra(ViewStreamsActivity.NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

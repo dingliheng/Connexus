@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -16,6 +18,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -25,21 +28,23 @@ import cz.msebera.android.httpclient.Header;
  */
 public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener{
-    //    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     Context context = this;
-    private String TAG  = "Display Streams";
-    final String ViewAllStreams_url = "http://connexus-1104.appspot.com/android_viewall";
-    public final static String EXTRA_MESSAGE = "name";
+    private String TAG  = "Search Streams";
+    public final static String NAME = "name";
+    public final static String KEYWORDS = "keywords";
+    public final static String TIMES = "times";
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private String keywords;
+    private int times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_streams);
+        setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
@@ -59,12 +64,19 @@ public class SearchActivity extends AppCompatActivity implements
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         findViewById(R.id.search_button).setOnClickListener(this);
-        findViewById(R.id.view_subscribed_button).setOnClickListener(this);
-        findViewById(R.id.nearby_button).setOnClickListener(this);
+        findViewById(R.id.more_search_results).setOnClickListener(this);
 
+        Intent intent = getIntent();
+        keywords = intent.getStringExtra(ViewStreamsActivity.KEYWORDS);
+        times = Integer.parseInt(intent.getStringExtra(ViewStreamsActivity.TIMES));
+        keywords = intent.getStringExtra(SearchActivity.KEYWORDS);
+        times = Integer.parseInt(intent.getStringExtra(SearchActivity.TIMES));
+//        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+//        System.out.println(times);
 
+        final String SearchStreams_url = "http://connexus-1104.appspot.com/android_search?keywords="+keywords+"&times="+times;
         AsyncHttpClient httpClient = new AsyncHttpClient();
-        httpClient.get(ViewAllStreams_url, new AsyncHttpResponseHandler() {
+        httpClient.get(SearchStreams_url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 final ArrayList<String> cover_URLs = new ArrayList<String>();
@@ -73,6 +85,10 @@ public class SearchActivity extends AppCompatActivity implements
                     JSONObject jObject = new JSONObject(new String(responseBody));
                     JSONArray cover_URLs_json = jObject.getJSONArray("cover_urls");
                     JSONArray names_json = jObject.getJSONArray("names");
+                    times = jObject.getInt("times");
+                    int num_results = jObject.getInt("num_results");
+                    TextView keywords_text = (TextView) findViewById(R.id.keywords_text);
+                    keywords_text.setText(num_results + " results for " + keywords + "\n click on an image to view stream");
 
                     for (int i = 0; i < cover_URLs_json.length(); i++) {
                         cover_URLs.add(cover_URLs_json.getString(i));
@@ -87,7 +103,7 @@ public class SearchActivity extends AppCompatActivity implements
                                                         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                                                             System.out.println(names.get(position));
                                                             Intent viewastream = new Intent(SearchActivity.this, ViewAStreamActivity.class);
-                                                            viewastream.putExtra(EXTRA_MESSAGE,names.get(position).toString());
+                                                            viewastream.putExtra(NAME, names.get(position).toString());
                                                             startActivity(viewastream);
                                                         }
                                                     }
@@ -102,41 +118,41 @@ public class SearchActivity extends AppCompatActivity implements
 
             }
         });
-
     }
 
     // [START on_click]
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.nearby_button:
-                onNearbyClicked();
-                break;
             case R.id.search_button:
                 onSearchClicked();
                 break;
-            case R.id.view_subscribed_button:
-                onViewSubscribedClicked();
+            case R.id.more_search_results:
+                onMoreSearchReultsClick();
                 break;
 
         }
     }
 
     //When click on the nearby button
-    private void onNearbyClicked() {
-        Intent k = new Intent(SearchActivity.this, ViewNearbyActivity.class);
+    private void onMoreSearchReultsClick() {
+        Intent k = new Intent(SearchActivity.this, SearchActivity.class);
+        k.putExtra(KEYWORDS, keywords);
+        k.putExtra(TIMES,Integer.toString(times));
         startActivity(k);
     }
 
     //When click on the search button
     private void onSearchClicked() {
         Intent k = new Intent(SearchActivity.this, SearchActivity.class);
+        EditText find_streams = (EditText) findViewById(R.id.keywords_edit);
+        keywords = find_streams.getText().toString();
+        k.putExtra(KEYWORDS, keywords);
+        k.putExtra(TIMES, "1");
         startActivity(k);
     }
 
     //When click on the view subscibed stream button
-    private  void onViewSubscribedClicked() {
-    }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override

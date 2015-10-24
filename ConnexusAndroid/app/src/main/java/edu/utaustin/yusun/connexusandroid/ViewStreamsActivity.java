@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,7 +30,9 @@ public class ViewStreamsActivity extends AppCompatActivity implements
     Context context = this;
     private String TAG  = "Display Streams";
     final String ViewAllStreams_url = "http://connexus-1104.appspot.com/android_viewall";
-    public final static String EXTRA_MESSAGE = "name";
+    public final static String NAME = "name";
+    public final static String KEYWORDS = "keywords";
+    public final static String TIMES = "times";
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -87,7 +90,7 @@ public class ViewStreamsActivity extends AppCompatActivity implements
                                                         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                                                             System.out.println(names.get(position));
                                                             Intent viewastream = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
-                                                            viewastream.putExtra(EXTRA_MESSAGE,names.get(position).toString());
+                                                            viewastream.putExtra(NAME,names.get(position).toString());
                                                             startActivity(viewastream);
                                                         }
                                                     }
@@ -131,6 +134,10 @@ public class ViewStreamsActivity extends AppCompatActivity implements
     //When click on the search button
     private void onSearchClicked() {
         Intent k = new Intent(ViewStreamsActivity.this, SearchActivity.class);
+        EditText find_streams = (EditText) findViewById(R.id.find_streams);
+        String keywords = find_streams.getText().toString();
+        k.putExtra(KEYWORDS, keywords);
+        k.putExtra(TIMES, "1");
         startActivity(k);
     }
 
