@@ -74,6 +74,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:text="Upload An Image"
+            android:onClick="uploadpictures"
             android:textColor="@android:color/white"
             android:background="@drawable/buttonshape"
             android:shadowColor="#F7F5ED"
@@ -84,12 +85,13 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/view_a_stream"
+            android:id="@+id/return_to_streams"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:text="Streams"
+            android:onClick="returnTostreams"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:background="@drawable/buttonshape"

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,9 @@ public class ViewAStreamActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TextView streamName = (TextView) findViewById(R.id.textView2);
+        streamName.setText(sream_name);
 
         final String view_astream_url = "http://connexus-1104.appspot.com/android_viewsingle?stream_name="+sream_name;
         AsyncHttpClient httpClient = new AsyncHttpClient();
@@ -73,6 +77,9 @@ public class ViewAStreamActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +88,11 @@ public class ViewAStreamActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void returnTostreams(View view) {
+        Intent returnTostreams = new Intent(ViewAStreamActivity.this,ViewStreamsActivity.class);
+        startActivity(returnTostreams);
     }
 
 }
