@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -55,10 +56,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public static  Camera getCameraInstance() {
         Camera c = null;
         try {
-            c = Camera.open();
+            c = Camera.open(0);
         } catch (Exception e) {
-
+            Log.w("getCameraInstance ", "We have Caremas  num" + Camera.getNumberOfCameras());
+            Log.w("getCameraInstance ", "Error setting camera preview: " + e.getMessage());
         }
+        if(c == null)
+            Log.w("Null", "open failed!!!!!!");
         return c;
     }
     @Override
