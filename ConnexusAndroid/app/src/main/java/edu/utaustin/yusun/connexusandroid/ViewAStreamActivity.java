@@ -19,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 import java.util.ArrayList;
-
+/**
+ * Created by yusun on 15/10/18.
+ */
 public class ViewAStreamActivity extends AppCompatActivity implements View.OnClickListener {
     Context context = this;
     private String TAG  = "Display Pictures";

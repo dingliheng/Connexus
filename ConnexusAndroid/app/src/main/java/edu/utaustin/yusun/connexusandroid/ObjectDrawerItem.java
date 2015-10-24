@@ -1,7 +1,7 @@
 package edu.utaustin.yusun.connexusandroid;
 
 /**
- * Created by mackbook on 15/10/23.
+ * Created by yusun on 15/10/23.
  */
 public class ObjectDrawerItem {
 

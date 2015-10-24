@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
+/**
+ * Created by yusun on 15/10/18.
+ */
 public class ViewNearbyActivity extends AppCompatActivity {
 
     @Override

@@ -20,7 +20,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-
+/**
+ * Created by yusun on 15/10/18.
+ */
 public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener{
     //    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by mackbook on 15/10/23.
+ * Created by yusun on 15/10/23.
  */
 public class DrawerItemCustomAdapter extends ArrayAdapter<ObjectDrawerItem> {
 
