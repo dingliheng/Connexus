@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ViewStreamsActivity extends AppCompatActivity implements
+public class SearchActivity extends AppCompatActivity implements
         View.OnClickListener{
     //    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     Context context = this;
@@ -84,7 +84,7 @@ public class ViewStreamsActivity extends AppCompatActivity implements
                                                         @Override
                                                         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                                                             System.out.println(names.get(position));
-                                                            Intent viewastream = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
+                                                            Intent viewastream = new Intent(SearchActivity.this, ViewAStreamActivity.class);
                                                             viewastream.putExtra(EXTRA_MESSAGE,names.get(position).toString());
                                                             startActivity(viewastream);
                                                         }
@@ -122,13 +122,13 @@ public class ViewStreamsActivity extends AppCompatActivity implements
 
     //When click on the nearby button
     private void onNearbyClicked() {
-        Intent k = new Intent(ViewStreamsActivity.this, ViewNearbyActivity.class);
+        Intent k = new Intent(SearchActivity.this, ViewNearbyActivity.class);
         startActivity(k);
     }
 
     //When click on the search button
     private void onSearchClicked() {
-        Intent k = new Intent(ViewStreamsActivity.this, SearchActivity.class);
+        Intent k = new Intent(SearchActivity.this, SearchActivity.class);
         startActivity(k);
     }
 
@@ -150,11 +150,11 @@ public class ViewStreamsActivity extends AppCompatActivity implements
             case 0:
                 break;
             case 1:
-                Intent k1 = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
+                Intent k1 = new Intent(SearchActivity.this, ViewAStreamActivity.class);
                 startActivity(k1);
                 break;
             case 2:
-                Intent k2 = new Intent(ViewStreamsActivity.this, LoginActivity.class);
+                Intent k2 = new Intent(SearchActivity.this, LoginActivity.class);
                 startActivity(k2);
                 break;
         }
