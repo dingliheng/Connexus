@@ -127,7 +127,7 @@ public class ViewStreamsActivity extends AppCompatActivity implements
 
     //When click on the nearby button
     private void onNearbyClicked() {
-        Intent k = new Intent(ViewStreamsActivity.this, ViewNearbyActivity.class);
+        Intent k = new Intent(ViewStreamsActivity.this, MapsActivity.class);
         startActivity(k);
     }
 
