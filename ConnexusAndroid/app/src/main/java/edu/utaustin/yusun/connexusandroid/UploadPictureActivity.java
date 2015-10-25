@@ -16,7 +16,7 @@ public class UploadPictureActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
-        
+
     }
 
 }
