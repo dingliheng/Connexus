@@ -1,103 +1,125 @@
 package edu.utaustin.yusun.connexusandroid;
 
-import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
 
 /**
  * Created by yusun on 15/10/18.
  */
-public class ViewNearbyActivity extends Activity {
-    private GoogleMap map;
-    LatLngBounds.Builder builder;
-    CameraUpdate cu;
+public class ViewNearbyActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener{
+    protected static final String TAG = "MainActivity";
 
+    /**
+     * Provides the entry point to Google Play services.
+     */
+    protected GoogleApiClient mGoogleApiClient;
+
+    /**
+     * Represents a geographical location.
+     */
+    protected Location mLastLocation;
+
+    protected String mLatitudeLabel;
+    protected String mLongitudeLabel;
+    protected TextView mLatitudeText;
+    protected TextView mLongitudeText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        /**get the reference of map from layout*/
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-                .getMap();
-        /**call the map set up method*/
-        mSetUpMap();
+        setContentView(R.layout.activity_view_nearby);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    }
-    /**create method to set map view*/
-    public void mSetUpMap() {
-        /**clear the map before redraw to them*/
-        map.clear();
-        /**Create dummy Markers List*/
-        List<Marker> markersList = new ArrayList<Marker>();
-        Marker Delhi = map.addMarker(new MarkerOptions().position(new LatLng(
-                28.61, 77.2099)).title("Delhi"));
-        Marker Chaandigarh = map.addMarker(new MarkerOptions().position(new LatLng(
-                30.75, 76.78)).title("Chandigarh"));
-        Marker SriLanka = map.addMarker(new MarkerOptions().position(new LatLng(
-                7.000, 81.0000)).title("Sri Lanka"));
-        Marker America = map.addMarker(new MarkerOptions().position(new LatLng(
-                38.8833, 77.0167)).title("America"));
-        Marker Arab = map.addMarker(new MarkerOptions().position(new LatLng(
-                24.000, 45.000)).title("Arab"));
+        mLatitudeLabel = getResources().getString(R.string.latitude_label);
+        mLongitudeLabel = getResources().getString(R.string.longitude_label);
+        mLatitudeText = (TextView) findViewById((R.id.latitude_text));
+        mLongitudeText = (TextView) findViewById((R.id.longitude_text));
 
-        /**Put all the markers into arraylist*/
-        markersList.add(Delhi);
-        markersList.add(SriLanka);
-        markersList.add(America);
-        markersList.add(Arab);
-        markersList.add(Chaandigarh);
+        buildGoogleApiClient();
 
-        /**create for loop for get the latLngbuilder from the marker list*/
-        builder = new LatLngBounds.Builder();
-        for (Marker m : markersList) {
-            builder.include(m.getPosition());
-        }
-        /**initialize the padding for map boundary*/
-        int padding = 50;
-        /**create the bounds from latlngBuilder to set into map camera*/
-        LatLngBounds bounds = builder.build();
-        /**create the camera with bounds and padding to set into map*/
-        cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-        /**call the map call back to know map is loaded or not*/
-        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+        
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMapLoaded() {
-                /**set animated zoom camera into map*/
-                map.animateCamera(cu);
-
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
+    /**
+     * Builds a GoogleApiClient. Uses the addApi() method to request the LocationServices API.
+     */
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
 
-//    Read more: http://www.androidhub4you.com/2015/06/android-maximum-zoom-in-google-map.html#ixzz3pbOuQqbn
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_view_nearby);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    /**
+     * Runs when a GoogleApiClient object successfully connects.
+     */
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel,
+                    mLastLocation.getLatitude()));
+            mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel,
+                    mLastLocation.getLongitude()));
+        } else {
+            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // The connection to Google Play services was lost for some reason. We call connect() to
+        // attempt to re-establish the connection.
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
+    }
+
 
 }
