@@ -14,21 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import cz.msebera.android.httpclient.Header;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 /**
  * Created by yusun on 15/10/18.
  */
@@ -186,6 +186,10 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                     Bitmap yourSelectedImage = null;
                     try {
                          yourSelectedImage = decodeUri(selectedImage);
+                        Intent intent = new Intent(ViewAStreamActivity.this, UploadPictureActivity.class);
+                        intent.putExtra("BitmapImage", yourSelectedImage);
+                        startActivity(intent);
+                        break;
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
