@@ -51,7 +51,7 @@ public class ViewNearbyActivity extends AppCompatActivity implements ConnectionC
 
         buildGoogleApiClient();
 
-        
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
