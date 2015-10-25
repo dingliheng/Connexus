@@ -6,10 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
@@ -25,6 +29,8 @@ import java.util.ArrayList;
 public class ViewAStreamActivity extends AppCompatActivity implements View.OnClickListener {
     Context context = this;
     private String TAG  = "Display Pictures";
+    Button btnClosePopup;
+    Button btnCreatePopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +104,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.upload_button:
-                Intent k1 = new Intent(ViewAStreamActivity.this, UploadActivity.class);
-                startActivity(k1);
+                initiatePopupWindow();
                 break;
             case R.id.view_streams_button:
                 Intent k2 = new Intent(ViewAStreamActivity.this, ViewStreamsActivity.class);
@@ -108,5 +113,52 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
 
         }
     }
+
+    private PopupWindow pwindo;
+
+    private void initiatePopupWindow() {
+        try {
+            // We need to get the instance of the LayoutInflater
+            LayoutInflater inflater = (LayoutInflater) ViewAStreamActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.screen_popup,
+                    (ViewGroup) findViewById(R.id.popup_element));
+            pwindo = new PopupWindow(layout, 300, 370, true);
+            pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            btnClosePopup = (Button) layout.findViewById(R.id.btn_close_popup);
+            btnClosePopup.setOnClickListener(cancel_button_click_listener);
+
+            btnClosePopup = (Button) layout.findViewById(R.id.btn_album);
+            btnClosePopup.setOnClickListener(album_button_click_listener);
+
+            btnClosePopup = (Button) layout.findViewById(R.id.btn_camera);
+            btnClosePopup.setOnClickListener(camera_button_click_listener);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private View.OnClickListener album_button_click_listener = new View.OnClickListener() {
+        public void onClick(View v) {
+            pwindo.dismiss();
+
+        }
+    };
+    private View.OnClickListener camera_button_click_listener = new View.OnClickListener() {
+        public void onClick(View v) {
+            pwindo.dismiss();
+
+        }
+    };
+    private View.OnClickListener cancel_button_click_listener = new View.OnClickListener() {
+        public void onClick(View v) {
+            pwindo.dismiss();
+
+        }
+    };
+
+
 
 }

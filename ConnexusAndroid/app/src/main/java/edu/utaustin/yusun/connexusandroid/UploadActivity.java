@@ -3,6 +3,7 @@ package edu.utaustin.yusun.connexusandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
+import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import java.io.File;
 
 
 /**
