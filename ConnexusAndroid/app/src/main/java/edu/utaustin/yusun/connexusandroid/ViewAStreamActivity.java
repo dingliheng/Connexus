@@ -7,8 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -43,6 +43,12 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
     Button btnClosePopup;
     Button btnCreatePopup;
 
+    private CharSequence mTitle;
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private CharSequence mDrawerTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,23 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(" ");
+
+        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.drawer_home, "Home");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.drawer_view_all, "View All Streams");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.drawer_logout, "Log Out");
+        // Set the adapter for the list view
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_item, drawerItem);
+        mDrawerList.setAdapter(adapter);
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
         findViewById(R.id.upload_button).setOnClickListener(this);
         findViewById(R.id.view_streams_button).setOnClickListener(this);
 
@@ -94,16 +117,6 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                     }
                 });
 
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public void returnTostreams(View view) {
@@ -240,6 +253,41 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
         o2.inSampleSize = scale;
         return BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o2);
 
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    /** Swaps fragments in the main content view */
+    private void selectItem(int position) {
+        // Create a new fragment and specify the planet to show based on position
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                Intent k1 = new Intent(ViewAStreamActivity.this, ViewStreamsActivity.class);
+                startActivity(k1);
+                break;
+            case 2:
+                Intent k2 = new Intent(ViewAStreamActivity.this, LoginActivity.class);
+                startActivity(k2);
+                break;
+        }
+
+        // Highlight the selected item, update the title, and close the drawer
+        mDrawerList.setItemChecked(position, true);
+        setTitle(mPlanetTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(" ");
     }
 
 
