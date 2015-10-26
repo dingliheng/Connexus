@@ -3,29 +3,32 @@
 android:id="@+id/popup_element"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="#444444"
+android:background="#448AFF"
 android:orientation="vertical"
 android:padding="10sp" >
 
     <TextView
-    android:id="@+id/txtView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5sp"
-    android:text="Hello!" />
+        android:id="@+id/txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:textColor="#EEEEEE"
+        android:text="     Choose One Way:" />
 
     <Button
         android:id="@+id/btn_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Use Album" />
+        android:background="#1565C0"
+        android:text="  Use Album " />
 
     <Button
         android:id="@+id/btn_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="#1565C0"
         android:text="Use Camera" />
 
     <Button
@@ -33,6 +36,7 @@ android:padding="10sp" >
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Close" />
+        android:background="#1565C0"
+        android:text="      Close      " />
 
 </LinearLayout>
