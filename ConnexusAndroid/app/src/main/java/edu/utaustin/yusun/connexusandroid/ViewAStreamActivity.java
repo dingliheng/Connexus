@@ -1,10 +1,12 @@
 package edu.utaustin.yusun.connexusandroid;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +36,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class ViewAStreamActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int PICK_IMAGE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int SELECT_PHOTO = 100;
     Context context = this;
     private String TAG  = "Display Pictures";
@@ -132,7 +134,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.screen_popup,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwindo = new PopupWindow(layout, 300, 370, true);
+            pwindo = new PopupWindow(layout, 300, 500, true);
             pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
             btnClosePopup = (Button) layout.findViewById(R.id.btn_close_popup);
@@ -164,8 +166,10 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
     };
     private View.OnClickListener camera_button_click_listener = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent k2 = new Intent(ViewAStreamActivity.this, UploadActivity.class);
-            startActivity(k2);
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         }
     };
     private View.OnClickListener cancel_button_click_listener = new View.OnClickListener() {
@@ -194,6 +198,16 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                         e.printStackTrace();
                     }
 
+                }
+                break;
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = imageReturnedIntent.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+//                    mImageView.setImageBitmap(imageBitmap);
+                    Intent intent = new Intent(ViewAStreamActivity.this, UploadPictureActivity.class);
+                    intent.putExtra("BitmapImage", imageBitmap);
+                    startActivity(intent);
                 }
         }
     }
