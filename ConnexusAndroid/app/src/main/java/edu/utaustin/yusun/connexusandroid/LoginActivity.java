@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements
         // [END create_google_api_client]
     }
 
+
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
