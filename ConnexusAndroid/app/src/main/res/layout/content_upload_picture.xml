@@ -19,7 +19,7 @@
             android:src="@drawable/sample"
             android:contentDescription="sample" />
         <EditText
-            android:id="@+id/search"
+            android:id="@+id/pictureTags"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.29"
@@ -28,7 +28,6 @@
             android:imeOptions="actionSend" />
         <Button
             android:id="@+id/upload_button"
-
             android:text="Upload this picture"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -41,6 +40,7 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
+            android:onClick="upload_image"
             />
 
         <View

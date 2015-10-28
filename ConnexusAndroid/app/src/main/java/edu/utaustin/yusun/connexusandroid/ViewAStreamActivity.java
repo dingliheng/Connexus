@@ -38,8 +38,13 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int SELECT_PHOTO = 100;
+    public static final String STREAMNAME = "stream_name";
+    public static final String BITMAPIMAGE = "BitmapImage";
+    public static final String USEREMAIL = "user_email";
     Context context = this;
     private String TAG  = "Display Pictures";
+    private String stream_name;
+    private String stream_email;
     Button btnClosePopup;
     Button btnCreatePopup;
 
@@ -55,7 +60,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_view_astream);
 
         Intent intent = getIntent();
-        String sream_name = intent.getStringExtra(ViewStreamsActivity.NAME);
+        stream_name = intent.getStringExtra(ViewStreamsActivity.NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,9 +85,9 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.view_streams_button).setOnClickListener(this);
 
         TextView streamName = (TextView) findViewById(R.id.textView2);
-        streamName.setText(sream_name);
+        streamName.setText(stream_name);
 
-        final String view_astream_url = "http://connexus-1104.appspot.com/android_viewsingle?stream_name="+sream_name;
+        final String view_astream_url = "http://connexus-1104.appspot.com/android_viewsingle?stream_name="+stream_name;
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(view_astream_url, new AsyncHttpResponseHandler() {
                     @Override
@@ -91,6 +96,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                         try {
                             JSONObject jObject = new JSONObject(new String(responseBody));
                             JSONArray picture_URLs_json = jObject.getJSONArray("picture_urls");
+                            stream_email = jObject.getString("user_email");
 
                             for (int i = 0; i < picture_URLs_json.length(); i++) {
                                 picture_URLs.add(picture_URLs_json.getString(i));
@@ -202,9 +208,14 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                     Uri selectedImage = imageReturnedIntent.getData();
                     Bitmap yourSelectedImage = null;
                     try {
-                         yourSelectedImage = decodeUri(selectedImage);
+                        yourSelectedImage = decodeUri(selectedImage);
+                        System.out.println(yourSelectedImage);
                         Intent intent = new Intent(ViewAStreamActivity.this, UploadPictureActivity.class);
-                        intent.putExtra("BitmapImage", yourSelectedImage);
+                        intent.putExtra(STREAMNAME,stream_name);
+                        intent.putExtra(BITMAPIMAGE,yourSelectedImage);
+                        intent.putExtra(USEREMAIL,stream_email);
+                        System.out.println(stream_name);
+                        System.out.println(stream_email);
                         startActivity(intent);
                         break;
                     } catch (FileNotFoundException e) {

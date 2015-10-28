@@ -58,8 +58,9 @@ class ViewStream(webapp2.RequestHandler):
         # self.redirect('/img?stream_name='+str(stream_name))
 
         cover_url = stream.cover
-
-        tags = stream.tags[0]
+        tags=''
+        for tag in stream.tags:
+            tags = tags+' '+tag
         template_values = {
             'stream_name': stream_name,
             # "stream.num_of_views":stream.num_of_views,
@@ -70,7 +71,6 @@ class ViewStream(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'upload_url': upload_url,
-            'tags':str(streams_tags)
         }
 
         template = JINJA_ENVIRONMENT.get_template('/htmls/ViewASingleStream.html')
