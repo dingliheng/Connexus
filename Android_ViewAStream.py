@@ -12,7 +12,7 @@ class Android_ViewAStream(webapp2.RequestHandler):
         picture_urls = []
         for picture in stream.pictures:
             picture_urls.append(get_serving_url(picture.blob_key, size=None, crop=False))
-        dictPassed = {'picture_urls':picture_urls}
+        dictPassed = {'picture_urls':picture_urls,"user_email":stream.author}
         jsonObj = json.dumps(dictPassed,sort_keys=True,indent=4, separators=(',', ': '))
         self.response.write(jsonObj)
 
