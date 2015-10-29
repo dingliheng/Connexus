@@ -95,6 +95,7 @@ public class ViewNearbyActivity extends AppCompatActivity implements LocationLis
 
     public void onLocationChanged(Location location) {
         printLocation(location);
+        
     }
 
     public void onProviderDisabled(String provider) {

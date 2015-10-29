@@ -27,7 +27,7 @@ public class MySubscribedActivity extends AppCompatActivity implements
         View.OnClickListener{
     Context context = this;
     private String TAG  = "Display Streams";
-    final String ViewAllStreams_url = "http://connexuselvis.appspot.com/android_viewall?user="+LoginActivity.currentAccount;
+    final String ViewAllStreams_url = "http://connexuselvis.appspot.com/android_viewmysubscribed?user="+LoginActivity.currentAccount;
     public final static String NAME = "name";
     public final static String KEYWORDS = "keywords";
     public final static String TIMES = "times";

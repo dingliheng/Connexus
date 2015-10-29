@@ -9,10 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -90,7 +88,7 @@ public class UploadPictureActivity extends AppCompatActivity {
 
     public String getUploadURL(){
         AsyncHttpClient httpClient = new AsyncHttpClient();
-        String request_url="http://connexus-1104.appspot.com/android_getUploadURL";
+        String request_url="http://connexuselvis.appspot.com/android_getUploadURL";
         System.out.println(request_url);
         httpClient.get(request_url, new AsyncHttpResponseHandler() {
 
