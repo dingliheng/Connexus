@@ -18,14 +18,14 @@ handlers:
 - url: /android_search
   script: Android_Search.app
 
-- url: /android_upload
-  script: Android_ImageUpload.app
-
 - url: /android_getUploadURL
   script: GetUploadURL.app
 
 - url: /Android_ImageUpload
   script: Android_ImageUpload.app
+
+- url: /android_viewnearby
+  script: Android_ViewNearby.app
 
 - url: /trend
   script: TrendingStreams.app

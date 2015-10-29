@@ -71,7 +71,7 @@ public class SearchActivity extends AppCompatActivity implements
         keywords = intent.getStringExtra(SearchActivity.KEYWORDS);
         times = Integer.parseInt(intent.getStringExtra(SearchActivity.TIMES));
 
-        final String SearchStreams_url = "http://connexus-1104.appspot.com/android_search?keywords="+keywords+"&times="+times;
+        final String SearchStreams_url = "http://connexuselvis.appspot.com/android_search?keywords="+keywords+"&times="+times;
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(SearchStreams_url, new AsyncHttpResponseHandler() {
             @Override
