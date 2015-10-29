@@ -87,7 +87,7 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
         TextView streamName = (TextView) findViewById(R.id.textView2);
         streamName.setText(stream_name);
 
-        final String view_astream_url = "http://connexus-1104.appspot.com/android_viewsingle?stream_name="+stream_name;
+        final String view_astream_url = "http://connexuselvis.appspot.com/android_viewsingle?stream_name="+stream_name;
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(view_astream_url, new AsyncHttpResponseHandler() {
                     @Override
