@@ -161,7 +161,7 @@ public class ViewStreamsActivity extends AppCompatActivity implements
             case 0:
                 break;
             case 1:
-                Intent k1 = new Intent(ViewStreamsActivity.this, ViewAStreamActivity.class);
+                Intent k1 = new Intent(ViewStreamsActivity.this, ViewStreamsActivity.class);
                 startActivity(k1);
                 break;
             case 2:
