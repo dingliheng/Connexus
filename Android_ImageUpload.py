@@ -17,8 +17,8 @@ class Android_ImageUpload(blobstore_handlers.BlobstoreUploadHandler):
         upload = self.get_uploads()[0]
         stream.pictures.append(Picture(blob_key = upload.key(),
                                        date = datetime.datetime.now(),
-                                       longitude = random.uniform(-150,150),
-                                       latitude = random.uniform(-85,85)))
+                                       longitude = self.request.params.get('latitude'),
+                                       latitude = self.request.params.get('longitude')))
         stream.put();
         stream.put();
 

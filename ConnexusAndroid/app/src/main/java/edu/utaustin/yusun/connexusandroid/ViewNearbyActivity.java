@@ -21,7 +21,7 @@ public class ViewNearbyActivity extends AppCompatActivity implements LocationLis
     protected String mLongitudeLabel;
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
-
+    public static Location lastLocation;
 
     private static final String[] S = { "Out of Service",
             "Temporarily Unavailable", "Available" };
@@ -61,8 +61,8 @@ public class ViewNearbyActivity extends AppCompatActivity implements LocationLis
 
         output.append("\n\nLocations (starting with last known):");
         try {
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            printLocation(location);
+            lastLocation = locationManager.getLastKnownLocation(bestProvider);
+            printLocation(lastLocation);
         } catch (SecurityException e) {
 
         }
@@ -95,7 +95,7 @@ public class ViewNearbyActivity extends AppCompatActivity implements LocationLis
 
     public void onLocationChanged(Location location) {
         printLocation(location);
-        
+
     }
 
     public void onProviderDisabled(String provider) {

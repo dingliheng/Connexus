@@ -63,8 +63,11 @@ public class UploadPictureActivity extends AppCompatActivity {
         byte[] encodedImage = Base64.encode(b, Base64.DEFAULT);
         String encodedImageStr = encodedImage.toString();
         System.out.println(upload_url);
-
+        Double latitude = ViewNearbyActivity.lastLocation.getLatitude();
+        Double longitude = ViewNearbyActivity.lastLocation.getLongitude();
         RequestParams params = new RequestParams();
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
         params.put("file",new ByteArrayInputStream(b));
         params.put("tags", tags);
         params.put("stream_name", stream_name);
