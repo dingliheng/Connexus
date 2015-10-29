@@ -29,7 +29,7 @@ public class ViewStreamsActivity extends AppCompatActivity implements
     //    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     Context context = this;
     private String TAG  = "Display Streams";
-    final String ViewAllStreams_url = "http://connexus-1104.appspot.com/android_viewall";
+    final String ViewAllStreams_url = "http://connexuselvis.appspot.com/android_viewall";
     public final static String NAME = "name";
     public final static String KEYWORDS = "keywords";
     public final static String TIMES = "times";
@@ -143,6 +143,8 @@ public class ViewStreamsActivity extends AppCompatActivity implements
 
     //When click on the view subscibed stream button
     private  void onViewSubscribedClicked() {
+        Intent k1 = new Intent(ViewStreamsActivity.this, MySubscribedActivity.class);
+        startActivity(k1);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

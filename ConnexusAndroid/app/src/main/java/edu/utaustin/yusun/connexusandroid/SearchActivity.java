@@ -18,7 +18,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -71,8 +70,6 @@ public class SearchActivity extends AppCompatActivity implements
         times = Integer.parseInt(intent.getStringExtra(ViewStreamsActivity.TIMES));
         keywords = intent.getStringExtra(SearchActivity.KEYWORDS);
         times = Integer.parseInt(intent.getStringExtra(SearchActivity.TIMES));
-//        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-//        System.out.println(times);
 
         final String SearchStreams_url = "http://connexus-1104.appspot.com/android_search?keywords="+keywords+"&times="+times;
         AsyncHttpClient httpClient = new AsyncHttpClient();
