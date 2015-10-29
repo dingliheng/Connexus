@@ -1,7 +1,6 @@
 package edu.utaustin.yusun.connexusandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,8 +9,6 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -75,17 +72,22 @@ public class ViewNearbyActivity extends AppCompatActivity implements LocationLis
         printProvider(bestProvider);
 
         output.append("\n\nLocations (starting with last known):");
+        float latitude = 0;
+        float longitude = 0;
         try {
             lastLocation = locationManager.getLastKnownLocation(bestProvider);
             printLocation(lastLocation);
+            latitude = (float)lastLocation.getLatitude();
+            longitude = (float)lastLocation.getLongitude();
         } catch (SecurityException e) {
 
+        } catch (NullPointerException e) {
+            latitude = 100.0f;
+            longitude = 100.0f;
         }
 
-//        float latitude = (float)ViewNearbyActivity.lastLocation.getLatitude();
-//        float longitude = (float)ViewNearbyActivity.lastLocation.getLongitude();
-        float latitude = 100.0f;
-        float longitude = 100.0f;
+
+
         System.out.println(latitude);
         String ViewNearby_url = "http://connexuselvis.appspot.com/android_viewnearby?latitude="+latitude+"&longtitude="+longitude;
         System.out.println(ViewNearby_url);
