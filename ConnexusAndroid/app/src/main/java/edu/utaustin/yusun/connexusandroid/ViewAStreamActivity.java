@@ -230,7 +230,10 @@ public class ViewAStreamActivity extends AppCompatActivity implements View.OnCli
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
 //                    mImageView.setImageBitmap(imageBitmap);
                     Intent intent = new Intent(ViewAStreamActivity.this, UploadPictureActivity.class);
-                    intent.putExtra("BitmapImage", imageBitmap);
+                    intent.putExtra(STREAMNAME,stream_name);
+                    intent.putExtra(BITMAPIMAGE,imageBitmap);
+                    intent.putExtra(USEREMAIL,stream_email);
+//                    intent.putExtra("BitmapImage", imageBitmap);
                     startActivity(intent);
                 }
         }

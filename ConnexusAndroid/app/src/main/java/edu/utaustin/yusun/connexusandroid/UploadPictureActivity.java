@@ -45,6 +45,9 @@ public class UploadPictureActivity extends AppCompatActivity {
         user_email = intent.getStringExtra(ViewAStreamActivity.USEREMAIL);
         bitmap = (Bitmap) intent.getParcelableExtra(ViewAStreamActivity.BITMAPIMAGE);
         stream_name = intent.getStringExtra(ViewAStreamActivity.STREAMNAME);
+        user_email = intent.getStringExtra(ViewAStreamActivity.USEREMAIL);
+        bitmap = (Bitmap) intent.getParcelableExtra(ViewAStreamActivity.BITMAPIMAGE);
+        stream_name = intent.getStringExtra(ViewAStreamActivity.STREAMNAME);
         upload_url=getUploadURL();
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
