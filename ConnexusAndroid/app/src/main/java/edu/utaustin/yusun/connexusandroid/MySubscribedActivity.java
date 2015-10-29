@@ -12,11 +12,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
 public class MySubscribedActivity extends AppCompatActivity implements
         View.OnClickListener{
     Context context = this;
     private String TAG  = "Display Streams";
-    final String ViewAllStreams_url = "http://connexus-1104.appspot.com/android_viewall";
+    final String ViewAllStreams_url = "http://connexuselvis.appspot.com/android_viewall?user="+LoginActivity.currentAccount;
     public final static String NAME = "name";
     public final static String KEYWORDS = "keywords";
     public final static String TIMES = "times";
@@ -46,6 +57,46 @@ public class MySubscribedActivity extends AppCompatActivity implements
         mDrawerList.setAdapter(adapter);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient.get(ViewAllStreams_url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                final ArrayList<String> cover_URLs = new ArrayList<String>();
+                final ArrayList<String> names = new ArrayList<String>();
+                try {
+                    JSONObject jObject = new JSONObject(new String(responseBody));
+                    JSONArray cover_URLs_json = jObject.getJSONArray("cover_urls");
+                    JSONArray names_json = jObject.getJSONArray("names");
+
+                    for (int i = 0; i < cover_URLs_json.length(); i++) {
+                        cover_URLs.add(cover_URLs_json.getString(i));
+                        names.add(names_json.getString(i));
+                        System.out.println(cover_URLs_json.getString(i));
+                    }
+                    ExpandableHeightGridView gridView = (ExpandableHeightGridView) findViewById(R.id.gridView);
+                    gridView.setAdapter(new ImageAdapter(context, cover_URLs));
+                    gridView.setExpanded(true);
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                        @Override
+                                                        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                                                            System.out.println(names.get(position));
+                                                            Intent viewastream = new Intent(MySubscribedActivity.this, ViewAStreamActivity.class);
+                                                            viewastream.putExtra(NAME, names.get(position).toString());
+                                                            startActivity(viewastream);
+                                                        }
+                                                    }
+                    );
+                } catch (JSONException j) {
+                    System.out.println("JSON Error");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 
     @Override

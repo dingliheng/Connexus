@@ -36,7 +36,8 @@ public class LoginActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-
+    public static Person currentPerson;
+    public static String currentAccount;
     private static final String TAG = "LoginActivity";
 
     /* RequestCode for resolutions involving sign-in */
@@ -106,7 +107,8 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void updateUI(boolean isSignedIn) {
         if (isSignedIn) {
-            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+            currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+//            user_email = Plus.AccountApi.getAccountName(mGoogleApiClient);
             if (currentPerson != null) {
                 // Show signed-in user's name
                 String name = currentPerson.getDisplayName();
@@ -114,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements
 
                 // Show users' email address (which requires GET_ACCOUNTS permission)
                 if (checkAccountsPermission()) {
-                    String currentAccount = Plus.AccountApi.getAccountName(mGoogleApiClient);
+                    currentAccount = Plus.AccountApi.getAccountName(mGoogleApiClient);
                     ((TextView) findViewById(R.id.email)).setText(currentAccount);
                 }
             } else {
