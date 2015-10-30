@@ -18,7 +18,8 @@ class Android_Nearby(webapp2.RequestHandler):
             for picture in stream.pictures:
                 pictures.append(picture)
                 pictures_distance.append((picture.latitude-float(user_latitude))**2+(picture.latitude-float(user_latitude))**2)
-        pictures.sort(cmp=None,key=lambda  x:((x.latitude-float(user_latitude))**2+(x.latitude-float(user_latitude))**2),reverse=False)
+        pictures.sort(cmp=None,key=lambda  x:x.date,reverse=True)
+        # pictures.sort(cmp=None,key=lambda  x:((x.latitude-float(user_latitude))**2+(x.latitude-float(user_latitude))**2),reverse=False)
         pictures_distance.sort()
         if len(pictures)>16:
             pictures = pictures[0:15]
